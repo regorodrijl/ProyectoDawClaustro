@@ -33,10 +33,10 @@
   <div class="container">
     <div class="row" align="center">
       <div class="col-md-6">
-        <button id="btnNuevo" class="btn btn-default" type="button">Nuevo Claustro</button>
+        <button id="btnNuevo" class="btn b btn-outline-primary" type="button">Nuevo Claustro</button>
       </div>
       <div class="col-md-6">
-        <button id="btnHistorico" class="btn btn-default" type="button">Histórico de Claustros</button>
+        <button id="btnHistorico" class="btn  btn-outline-primary" type="button">Histórico de Claustros</button>
       </div>
       <!-- <div class="col-md-4">
         <button id="btnProfes" class="btn btn-default" type="button">Actualizar Profesores</button>
@@ -126,13 +126,13 @@
 </body>
 <!-- script  -->
 <!-- jQuery CDN versión 2.2.4 ya que bootstrap no sopeorta la 3 -->
-<script type="text/javascript" src="/ProyectoDawClaustro/librerias/libsExternas/js/jquery.min.js"></script>
+<script src="/ProyectoDawClaustro/librerias/libsExternas/js/jquery.min.js" async></script>
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap.min.js"></script>
+<script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
-<script type="text/javascript" src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap-select.min.js"></script>
+<script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap-select.min.js"></script>
 <!-- Libreria para imprimir -->
-<script type="text/javascript" src="ProyectoDawClaustro/librerias/js/jquery.PrintArea.js"></script>
+<script src="ProyectoDawClaustro/librerias/js/jquery.PrintArea.js"></script>
 <script type="text/javascript" src="/ProyectoDawClaustro/js/scripts.js"></script>
 
 </html>

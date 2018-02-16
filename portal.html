@@ -81,12 +81,12 @@
                 <button id="btnNuevo" href="#modalNuevo" class="waves-effect waves-light btn modal-trigger btn-outline-primary" type="button">Nuevo Claustro</button>
             </div>
             <div class="col">
-                <button id="btnHistorico" class="btn  btn-outline-primary" type="button">Histórico de Claustros</button>
+                <button id="btnHistorico" href="#modalHistorico" class="waves-effect waves-light btn modal-trigger btn-outline-primary" type="button">Histórico de Claustros</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Structure -->
+    <!-- Modal de Creacion -->
     <div id="modalNuevo" class="modal bottom-sheet">
         <div class="modal-title">Creación de Claustro
             <button value="Cancelar" class="discard modal-close btn waves-effect waves-light">
@@ -141,7 +141,44 @@
             <div id="seleccion"></div>
         </div>
         <button id="crearClaustro" class=".col-md-3 .col-md-offset-3 center-block">Crear Claustro</button>
+    </div>
 
+
+    <!-- Modal de historico -->
+    <div id="modalHistorico" class="modal bottom-sheet">
+        <div class="modal-title">Histórico de claustros
+            <button value="Cancelar" class="discard modal-close btn waves-effect waves-light">
+                <i class="material-icons">close</i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="row" id="historico">
+                <div class="col-xs-6 col-md-4" id="hiz">
+                    <label>Listado de Claustros:</label>
+                    <div id="historicoClaustros"></div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-8" id="hdr">
+                    <label>Datos del Claustro:</label>
+                    <div class="jumbotron" id="datosClaustroHistorico"></div>
+                </div>
+                <div id="display_dialog"></div>
+                <div class="col-md-3 center-block">
+                    <button type="button" id="imprimir" class="btn btn-success center-block">Imprimir!</button>
+                </div>
+                <div class="col-md-3 center-block">
+                    <button type="button" id="editar" class="btn btn-primary center-block">Editar!</button>
+                </div>
+                <div class="col-md-3 center-block">
+                    <button type="button" id="borrar" class="btn btn-danger center-block">Borrar!</button>
+                </div>
+                <div class="col-md-3 center-block">
+                    <button type="button" id="guardar" class="btn btn-info center-block">Guardar!</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
     </div>
     <footer>
         <p>&copy; 2016 regorodrijl.</p>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="description" content="Proyecto DAW IES San Clemente. Claustro de Profesores.">
+    <meta name="author" content="Jose Luis Rego Rodríguez">
+    <link rel="icon" href="../../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/ProyectoDawClaustro/css/ClaustroiNet.css">
+    <title>ClaustroiNet</title>
+    <!-- Latest compiled and minified CSS
+  <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap.css">
+  <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-theme.min.css"> -->
+    <!-- Normalize -->
+    <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/normalize.css">
+    <link rel="stylesheet" href="librerias/libsExternas/materialize/css/materialize.css">
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-select.min.css"> -->
+</head>
+
+<body>
+    <div id="titulo" class="container" align="center">
+        <h3>Aplicación de Configuración de Claustros.</h3>
+    </div>
+    <h2 id="reset">ClaustroiNet</h2>
+
+    <div class="cargando">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modalNuevo">Modal</a>
+
+    <!-- Modal Structure -->
+    <div id="modalNuevo" class="modal bottom-sheet">
+        <div class="modal-content">
+            <div class="modal-content">
+                <div>
+                    <div class="" id="niz">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Título Claustro:</label>
+                                <div class="col-sm-4">
+                                    <input name="titulo" type="text" id="tituloClaustro" size="50" required placeholder="Escriba un título para el Claustro."
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Día:</label>
+                                <div class="col-sm-4">
+                                    <input name="fecha" type="date" id="fecha" required value="" />
+                                </div>
+                                <label class="col-sm-2 control-label">Curso:</label>
+                                <div class="col-sm-4">
+                                    <input name="curso" type="text" id="curso" required placeholder="Curso: 2015-2016" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Hora Inicio:</label>
+                                <div class="col-sm-4">
+                                    <input type="time" name="fecha" id="horaInicio" required value="">
+                                </div>
+                                <label class="col-sm-2 control-label">Hora Fin:</label>
+                                <div class="col-sm-4">
+                                    <input type="time" name="fecha" id="horaFin" required value="">
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <label>Orden del día:</label>
+                        <textarea id="orden" class="form-control" rows="4" required placeholder="Escriba la orden del día."></textarea>
+                        <label>Observaciones:</label>
+                        <textarea id="observacion" class="form-control" rows="4" placeholder="Alguna observación?"></textarea>
+                    </div>
+                    <div id="selectProfesores">
+                        <select class="selectpicker" required multiple id="selecProfe" data-live-search="true" title="Seleccione Profesor">
+                        </select>
+                    </div>
+                    <div id="seleccion"></div>
+                </div>
+                <div>
+                    <button id="crearClaustro" class=".col-md-3 .col-md-offset-3 center-block">Crear Claustro</button>
+                </div>
+            </div>
+            <button value="Cancelar" class="discard modal-close btn waves-effect waves-light">
+                <i class="material-icons">close</i>
+            </button>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2016 regorodrijl.</p>
+    </footer>
+    </div>
+</body>
+<!-- script  -->
+<!-- jQuery CDN versión 2.2.4 ya que bootstrap no sopeorta la 3 -->
+<script language="JavaScript" src="/ProyectoDawClaustro/librerias/libsExternas/jQuery/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap.min.js"></script> -->
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap-select.min.js"></script> -->
+<!-- Libreria para imprimir -->
+<!-- <script src="ProyectoDawClaustro/librerias/js/jquery.PrintArea.js"></script> -->
+<script language="JavaScript" type="text/javascript" src="librerias/libsExternas/materialize/js/materialize.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/scripts.js"></script>
+
+</html>

@@ -25,7 +25,13 @@
 	-webkit-font-smoothing: antialiased;
 }
 
-/* Fin Importación iconos*/
+/************************************************
+					Fin Importación iconos
+************************************************/
+
+.dn {
+	display: none;
+}
 
 .color {
 	background-color: red;
@@ -36,7 +42,50 @@ table {
 	cursor: hand;
 }
 
-/* Parte nueva 2018*/
+.cuerpoApp {
+	width: 37%;
+	margin: 0 auto;
+}
+
+/************************************************
+					Botones
+************************************************/
+
+.btn-outline-primary {
+	border: 2px solid #4285f4!important;
+	color: #4285f4!important;
+	background-color: transparent!important;
+	box-shadow: none !important;
+	border-radius: 0!important;
+}
+
+.btn-outline-primary:hover {
+	color: #FFF !important;
+	background-color: #4285f4!important;
+	border-color: #4285f4!important;
+	box-shadow: none;
+}
+
+/************************************************
+					Fin Botones
+************************************************/
+
+/************************************************
+					Modal
+************************************************/
+
+.modal-title {
+	position: fixed;
+	padding: 20px;
+	background: #cecece;
+	font-size: 1.5em;
+	width: 100%;
+	z-index: 1;
+}
+
+.modal-content {
+	margin-top: 50px;
+}
 
 .modal.bottom-sheet {
 	max-height: 65%!important;
@@ -46,8 +95,8 @@ table {
 	font-family: "Material Icons";
 	text-transform: lowercase;
 	position: absolute;
-	right: 25px;
-	top: 25px;
+	right: 35px;
+	top: 22px;
 	padding: 0;
 	height: 30px;
 	width: 30px;
@@ -65,3 +114,7 @@ table {
 	background: red;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)
 }
+
+/************************************************
+					Fin	Modal
+************************************************/

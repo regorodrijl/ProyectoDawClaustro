@@ -328,11 +328,32 @@ $(document).ready(function () {
 //Nueva parte  por revisar parte anterior
 $(document).ready(function () {
     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-    $('.modal-trigger').click(function () {
+    $('#btnNuevo').click(function () {
         $('#modalNuevo').modal();
 
     });
-    $('.modal-trigger').click(function () {
+    $('.modal-close').click(function () {
         $('#modalNuevo').modal('close');
+    });
+    /**Inicializador de fecha */
+    $('.datepicker').pickadate({
+        selectMonths: true,
+        selectYears: 15,
+        today: 'Today',
+        clear: 'Clear',
+        close: 'Ok',
+        closeOnSelect: true
+    });
+    /**Inicializador de hora */
+    $('.timepicker').pickatime({
+        default: 'now',
+        fromnow: 0,
+        twelvehour: false,
+        donetext: 'OK',
+        cleartext: 'Clear',
+        canceltext: 'Cancel',
+        autoclose: false,
+        ampmclickable: true,
+        aftershow: function () { } //Function for after opening timepicker
     });
 });

@@ -46,6 +46,26 @@ table {
 	margin: 0 auto;
 }
 
+header {
+	height: 80px;
+	background: darkgrey;
+	margin-bottom: 20px;
+}
+
+header span {
+	margin: 20px;
+	line-height: 5;
+	text-transform: uppercase;
+}
+
+i.material-icons.prefix {
+	line-height: 1.5;
+}
+
+.registro {
+	display: none;
+}
+
 footer {
 	position: absolute;
 	bottom: 0;

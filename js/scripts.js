@@ -2,12 +2,12 @@ $(document).ready(function () {
     var profesPDF = [];
     var $contenidoAjax = $('div#contenidoAjax').html('<p><img src="./src/loader.gif" /></p>');
     //al entrar en la web, actualizar profesor y desactivar los claustros activos.
-    $("#historico").hide();
-    $("#nuevo").hide();
-    $("#imprimir").hide();
-    $("#editar").hide();
-    $("#borrar").hide();
-    $("#guardar").hide();
+    // $("#historico").hide();
+    // $("#nuevo").hide();
+    // $("#imprimir").hide();
+    // $("#editar").hide();
+    // $("#borrar").hide();
+    // $("#guardar").hide();
     //$('div#contenidoAjax').hide();
     var crear = false;
     var claustroActivo = false;
@@ -325,9 +325,18 @@ $(document).ready(function () {
 
     });//fin imprimir
 });
-//Nueva parte  por revisar parte anterior
+//Nueva parte  por revisar parte anterior 2018
 $(document).ready(function () {
-    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('#loginRegistro').click(function () {
+        $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
+        $('.registro').css('display') == 'none' ? $('.registro').fadeIn() : $('.registro').fadeOut();
+        $('.registro').css('display') == 'block' ? $('.registro').css('display', 'flex') : $('.registro').css('display', 'none');
+    });
+    $('#cancelarRegistro').click(function () {
+        $('.registro').css('display') == 'none' ? $('.registro').css('display', 'block') : $('.registro').css('display', 'none');
+        $('.login').css('display') == 'none' ? $('.login').fadeIn() : $('.login').fadeOut();
+        $('.login').css('display') == 'block' ? $('.login').css('display', 'flex') : $('.login').css('display', 'flex');
+    });
     $('#btnNuevo').click(function () {
         $('#modalNuevo').modal();
     });
@@ -336,26 +345,5 @@ $(document).ready(function () {
     });
     $('.modal-close').click(function () {
         $('.modal').modal('close');
-    });
-    /**Inicializador de fecha */
-    $('.datepicker').pickadate({
-        selectMonths: true,
-        selectYears: 15,
-        today: 'Today',
-        clear: 'Clear',
-        close: 'Ok',
-        closeOnSelect: true
-    });
-    /**Inicializador de hora */
-    $('.timepicker').pickatime({
-        default: 'now',
-        fromnow: 0,
-        twelvehour: false,
-        donetext: 'OK',
-        cleartext: 'Clear',
-        canceltext: 'Cancel',
-        autoclose: false,
-        ampmclickable: true,
-        aftershow: function () { } //Function for after opening timepicker
     });
 });

@@ -1,66 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="es">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="Proyecto DAW IES San Clemente. Claustro de Profesores.">
-  <meta name="author" content="Jose Luis Rego Rodríguez y Óscar Fuentes Maña">
-  <link rel="icon" href="../../favicon.ico">
-
-  <title>ClaustroiNet</title>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="description" content="Proyecto DAW IES San Clemente. Claustro de Profesores.">
+    <meta name="author" content="Jose Luis Rego Rodríguez">
+    <link rel="icon" href="../../favicon.ico">
+    <!-- <link rel="stylesheet" type="text/css" href="/ProyectoDawClaustro/css/ClaustroiNet.css"> -->
+    <title>ClaustroiNet</title>
+    <!-- Latest compiled and minified CSS
+  <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap.css">
   <!-- Optional theme -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-theme.min.css"> -->
+    <!-- Normalize -->
+    <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/normalize.css">
+    <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/materialize/css/materialize.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-select.min.css"> -->
 </head>
 
 <body>
 
-  <div class="jumbotron">
+    <div class="jumbotron" align="center">
+        <div id="titulo" class="container" align="center">
+            <h3>Aplicación de Configuración de Claustros.</h3>
+        </div>
+        <h2 id="reset">ClaustroiNet</h2>
+    </div>
+    
     <div class="container">
-    <h2>Aplicación de Configuración de Claustros.</h2>
-    <h1>ClaustroiNet</h1>
+        <div class="row" align="center">
+            <div class="col-md-6">
+                <button id="btnNuevo" href="#modal1" class="btn b btn-outline-primary" type="button">Nuevo Claustro</button>
+            </div>
+            <div class="col-md-6">
+                <button id="btnHistorico" class="btn  btn-outline-primary" type="button">Histórico de Claustros</button>
+            </div>
+            <!-- <div class="col-md-4">
+        <button id="btnProfes" class="btn btn-default" type="button">Actualizar Profesores</button>
+      </div> -->
+        </div>
+        <br>
+       
+        <!-- Modal Creación de claustros -->
+        <div id="modalNuevo" class="modal bottom-sheet">
+            <div class="modal-content">
+                <div>
+                    <div class="" id="niz">
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Título Claustro:</label>
+                                <div class="col-sm-4">
+                                    <input name="titulo" type="text" id="tituloClaustro" size="50" required placeholder="Escriba un título para el Claustro."
+                                    />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Día:</label>
+                                <div class="col-sm-4">
+                                    <input name="fecha" type="date" id="fecha" required value="" />
+                                </div>
+                                <label class="col-sm-2 control-label">Curso:</label>
+                                <div class="col-sm-4">
+                                    <input name="curso" type="text" id="curso" required placeholder="Curso: 2015-2016" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Hora Inicio:</label>
+                                <div class="col-sm-4">
+                                    <input type="time" name="fecha" id="horaInicio" required value="">
+                                </div>
+                                <label class="col-sm-2 control-label">Hora Fin:</label>
+                                <div class="col-sm-4">
+                                    <input type="time" name="fecha" id="horaFin" required value="">
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        <label>Orden del día:</label>
+                        <textarea id="orden" class="form-control" rows="4" required placeholder="Escriba la orden del día."></textarea>
+                        <label>Observaciones:</label>
+                        <textarea id="observacion" class="form-control" rows="4" placeholder="Alguna observación?"></textarea>
+                    </div>
+                    <div id="selectProfesores">
+                        <select class="selectpicker" required multiple id="selecProfe" data-live-search="true" title="Seleccione Profesor">
+                        </select>
+                    </div>
+                    <div id="seleccion"></div>
+                </div>
+                <div>
+                    <button id="crearClaustro" class=".col-md-3 .col-md-offset-3 center-block">Crear Claustro</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+
+        <div class="row" id="nuevo">
+
+        </div>
+
+        <br>
+        <div class="row" id="historico">
+            <div class="col-xs-6 col-md-4" id="hiz">
+                <label>Listado de Claustros:</label>
+                <div id="historicoClaustros"></div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-8" id="hdr">
+                <label>Datos del Claustro:</label>
+                <div class="jumbotron" id="datosClaustroHistorico"></div>
+            </div>
+            <div id="display_dialog"></div>
+            <div class="col-md-3 center-block">
+                <button type="button" id="imprimir" class="btn btn-success center-block">Imprimir!</button>
+            </div>
+            <div class="col-md-3 center-block">
+                <button type="button" id="editar" class="btn btn-primary center-block">Editar!</button>
+            </div>
+            <div class="col-md-3 center-block">
+                <button type="button" id="borrar" class="btn btn-danger center-block">Borrar!</button>
+            </div>
+            <div class="col-md-3 center-block">
+                <button type="button" id="guardar" class="btn btn-info center-block">Guardar!</button>
+            </div>
+        </div>
+        <hr>
+
+        <footer>
+            <p>&copy; 2016 regorodrijl.</p>
+        </footer>
     </div>
-  </div>
+</body>
+<!-- script  -->
+<!-- jQuery CDN versión 2.2.4 ya que bootstrap no sopeorta la 3 -->
+<script language="JavaScript" src="/ProyectoDawClaustro/librerias/libsExternas/jQuery/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap.min.js"></script> -->
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap-select.min.js"></script> -->
+<!-- Libreria para imprimir -->
+<!-- <script src="ProyectoDawClaustro/librerias/js/jquery.PrintArea.js"></script> -->
+<script language="JavaScript" type="text/javascript" src="librerias/libsExternas/materialize/js/materialize.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/scripts.js"></script>
 
-  <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
-      <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
-      <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-      </div>
-    </div>
-
-    <hr>
-
-    <footer>
-      <p>&copy; 2015 Company, Inc.</p>
-    </footer>
-  </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
-  </html>
+</html>

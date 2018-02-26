@@ -42,8 +42,7 @@ table {
 }
 
 .cuerpoApp {
-	width: 37%;
-	margin: 0 auto;
+	text-align: center;
 }
 
 header {
@@ -116,7 +115,8 @@ footer {
 }
 
 .modal.bottom-sheet {
-	max-height: 65%!important;
+	height: 100%;
+	max-height: 80%!important;
 }
 
 .modal .discard {

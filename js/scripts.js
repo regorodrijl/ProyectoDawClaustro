@@ -191,7 +191,7 @@ $(document).ready(function () {
         $('.login').css('display') == 'none' ? $('.login').fadeIn() : $('.login').fadeOut();
         $('.login').css('display') == 'block' ? $('.login').css('display', 'flex') : $('.login').css('display', 'flex');
     });
-    $('#btnNuevo').click(function () {
+    $('#botonNuevo').click(function () {
         $('#modalNuevo').modal();
     });
     // $('#botonHistorico').click(function () {

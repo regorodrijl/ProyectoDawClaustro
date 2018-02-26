@@ -310,6 +310,7 @@ if(!empty($_POST['fecha'])){
 		echo  json_encode("error: ".$e->getMessage());
 	}
 }
+//rellenar select de profes
 if(!empty($_POST['rellenar'])){
 	try{
 		$arrayD=[];
@@ -419,7 +420,8 @@ if(!empty($_POST['pdf'])){
 			}
 		}
 		$pdf->Output("F",UPLOAD_DIR.$nombre.".pdf");
-		echo json_encode("http://regorodri.noip.me/proyecto/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
+		echo json_encode("C:/xampp/htdocs/ProyectoDawClaustro/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
+		//echo json_encode("http://regorodri.noip.me/proyecto/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
 	//}
 	}
 	?>

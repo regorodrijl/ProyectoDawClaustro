@@ -16,20 +16,6 @@ $(document).ready(function () {
     //var datosProfesActualizar =  '< php echo json_encode($result); ?>';
     datosProfesActualizar = "datos";//JSON.parse(datosProfesActualizar);
     // poner: cargando...
-    //PARCHE PUNTUAL
-    $.ajax({
-        url: "./librerias/php/funciones.php",
-        type: 'post',
-        dataType: 'json',
-        data: { rellenar: "ja" },
-        success: function (respuesta) {
-            $.each(respuesta, function (id, value) {
-                $('<option/>').val(value.nombre).text(value.nombre);//.appendTo($("#selecProfe"));
-            });
-            // $('.selectpicker').selectpicker('refresh');
-        }
-    });
-    //fin PARCHE PUNTUAL
     //antes del parche
     /*   $.ajax({
          url: "./librerias/php/funciones.php",
@@ -179,6 +165,11 @@ $(document).ready(function () {
 
     });//fin imprimir
 });
+/******************************************
+ * ****************************************
+ * ****************************************
+ * ****************************************
+ */
 //Nueva parte  por revisar parte anterior 2018
 $(document).ready(function () {
     $('#loginRegistro').click(function () {
@@ -194,12 +185,23 @@ $(document).ready(function () {
     $('#botonNuevo').click(function () {
         $('#modalNuevo').modal();
     });
-    // $('#botonHistorico').click(function () {
-    //     
-    // });
     $('.modal-close').click(function () {
         $('.modal').modal('close');
     });
+
+
+    //PARCHE PUNTUAL
+    let datosProfesores = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { rellenar: "ja" } });
+
+    console.log("datos Profesores", datosProfesores);
+    debugger
+    $.each(datosProfesores, function (id, value) {
+        $('<option/>').val(value.nombre).text(value.nombre);//.appendTo($("#selecProfe"));
+    });
+    // $('.selectpicker').selectpicker('refresh');
+
+
+
     /**Comproar si hay claustro activo y cambiarlos de esteado  */
     // desactivar claustro activos.
     // $.ajax({

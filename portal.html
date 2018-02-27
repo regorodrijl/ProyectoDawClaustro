@@ -134,13 +134,27 @@
                             <textarea id="observacion" class="form-control" rows="4" placeholder="Alguna observación?"></textarea>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col s6">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" id="autocomplete-input" class="autocomplete">
+                                    <label for="autocomplete-input">Selección de profesores:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div id="seleccion"></div>
+                        </div>
+                    </div>
+                    <div class=" col s12" id="selectProfesores">
+                        <select class="selectpicker" style="display:block" required multiple id="selecProfe" data-live-search="true" title="Seleccione Profesor">
+                        </select>
+                    </div>
+
                 </form>
             </div>
-            <div id="selectProfesores">
-                <select class="selectpicker" required multiple id="selecProfe" data-live-search="true" title="Seleccione Profesor">
-                </select>
-            </div>
-            <div id="seleccion"></div>
         </div>
         <button id="crearClaustro" class=".col-md-3 .col-md-offset-3 center-block">Crear Claustro</button>
     </div>
@@ -185,7 +199,7 @@
     <footer>
         <p>&copy; 2018. Jose Luis Rego Rodríguez.
         </p>
-</footer>
+    </footer>
     </div>
 </body>
 <!-- script  -->

@@ -191,16 +191,21 @@ $(document).ready(function () {
 
 
     //PARCHE PUNTUAL
-    let datosProfesores = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { rellenar: "ja" } });
+    let profesores = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { rellenar: "ja" } });
 
-    console.log("datos Profesores", datosProfesores);
-    debugger
-    $.each(datosProfesores, function (id, value) {
-        $('<option/>').val(value.nombre).text(value.nombre);//.appendTo($("#selecProfe"));
+    console.log("datos Profesores", profesores);
+
+    var objDatosProfes = {};
+    $.each(profesores, function (id, value) {
+        objDatosProfes[value.nombre] = null;
     });
-    // $('.selectpicker').selectpicker('refresh');
-
-
+    $('input.autocomplete').autocomplete({
+        data: objDatosProfes,
+        onAutocomplete: function (val) {
+            alert("hola");
+            //resetear el campo y añadir a seletc
+        }
+    });
 
     /**Comproar si hay claustro activo y cambiarlos de esteado  */
     // desactivar claustro activos.

@@ -74,6 +74,14 @@ footer {
 	padding-right: 20px;
 }
 
+.row {
+	margin-bottom: 5px!important;
+}
+
+#crearClaustro {
+	display: block!important;
+}
+
 /************************************************
 					Botones
 ************************************************/

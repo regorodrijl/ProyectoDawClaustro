@@ -80,6 +80,85 @@ $(document).ready(function () {
             });
         });
     });// fin nuevo 
+
+    //IMPRIMIR
+    $("#imprimir").click(function () {
+        $('div#contenidoAjax').show();
+        var datosPDF = { "title": $("#t").val(), "date": $("#d").val(), "curso": $("#c").val(), "hi": $("#hi").val(), "hf": $("#hf").val(), "or": $("#or").val(), "ob": $("#ob").val(), "firmas": profesPDF };
+
+        console.log("DATOS A ENVIAR:", datosPDF);
+        var name = $("#d").val();
+        $.ajax({
+            type: "POST",
+            dataType: 'text',
+            dataType: 'json',
+            url: "./librerias/php/funciones.php",
+            data: { pdf: datosPDF, nombre: name },
+            success: function (pdf) {
+                $('div#contenidoAjax').hide();
+                console.log("url->", pdf);
+
+                a = document.createElement("a");
+                a.download = "Claustro" + name + ".pdf";
+                a.href = pdf;
+                a.click();
+
+                //window.open(pdf, '_blank');
+            }
+        });
+
+    });//fin imprimir
+});
+/******************************************
+ * ****************************************
+ * *************** 2018 *********************
+ * ****************************************
+ */
+//Nueva parte  por revisar parte anterior 2018
+$(document).ready(function () {
+    $('#loginRegistro').click(function () {
+        $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
+        $('.registro').css('display') == 'none' ? $('.registro').fadeIn() : $('.registro').fadeOut();
+        $('.registro').css('display') == 'block' ? $('.registro').css('display', 'flex') : $('.registro').css('display', 'none');
+    });
+    $('#cancelarRegistro').click(function () {
+        $('.registro').css('display') == 'none' ? $('.registro').css('display', 'block') : $('.registro').css('display', 'none');
+        $('.login').css('display') == 'none' ? $('.login').fadeIn() : $('.login').fadeOut();
+        $('.login').css('display') == 'block' ? $('.login').css('display', 'flex') : $('.login').css('display', 'flex');
+    });
+    $('#botonNuevo').click(function () {
+        $('#modalNuevo').modal();
+    });
+    $('.modal-close').click(function () {
+        $('.modal').modal('close');
+    });
+
+    let profesores = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { rellenar: "ja" } });
+    var objDatosProfes = {};
+    console.log(profesores)
+    $.each(profesores, function (id, value) {
+        objDatosProfes[value.nombre] = { id: value.id };
+        objDatosProfes[value.id]
+    });
+
+    $('input.autocomplete').autocomplete({
+        data: objDatosProfes,
+        onAutocomplete: function (val) {
+            //comprobar q no este ya y añadir     no dejar añadir 2 veces
+            // Control doble click para borrar!
+            $("#seleccion").append("<div>" + val + "</div>");
+        }
+    });
+
+
+
+
+
+
+
+
+
+
     // CREAR NUEVO CLAUSTRO
     $("#crearClaustro").click(function () {
         //comprobar si hay clautro activo para esa fecha.     
@@ -137,75 +216,16 @@ $(document).ready(function () {
             console.log(error);
         });
     });//fin botón CrearClaustro
-    //IMPRIMIR
-    $("#imprimir").click(function () {
-        $('div#contenidoAjax').show();
-        var datosPDF = { "title": $("#t").val(), "date": $("#d").val(), "curso": $("#c").val(), "hi": $("#hi").val(), "hf": $("#hf").val(), "or": $("#or").val(), "ob": $("#ob").val(), "firmas": profesPDF };
-
-        console.log("DATOS A ENVIAR:", datosPDF);
-        var name = $("#d").val();
-        $.ajax({
-            type: "POST",
-            dataType: 'text',
-            dataType: 'json',
-            url: "./librerias/php/funciones.php",
-            data: { pdf: datosPDF, nombre: name },
-            success: function (pdf) {
-                $('div#contenidoAjax').hide();
-                console.log("url->", pdf);
-
-                a = document.createElement("a");
-                a.download = "Claustro" + name + ".pdf";
-                a.href = pdf;
-                a.click();
-
-                //window.open(pdf, '_blank');
-            }
-        });
-
-    });//fin imprimir
-});
-/******************************************
- * ****************************************
- * ****************************************
- * ****************************************
- */
-//Nueva parte  por revisar parte anterior 2018
-$(document).ready(function () {
-    $('#loginRegistro').click(function () {
-        $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
-        $('.registro').css('display') == 'none' ? $('.registro').fadeIn() : $('.registro').fadeOut();
-        $('.registro').css('display') == 'block' ? $('.registro').css('display', 'flex') : $('.registro').css('display', 'none');
-    });
-    $('#cancelarRegistro').click(function () {
-        $('.registro').css('display') == 'none' ? $('.registro').css('display', 'block') : $('.registro').css('display', 'none');
-        $('.login').css('display') == 'none' ? $('.login').fadeIn() : $('.login').fadeOut();
-        $('.login').css('display') == 'block' ? $('.login').css('display', 'flex') : $('.login').css('display', 'flex');
-    });
-    $('#botonNuevo').click(function () {
-        $('#modalNuevo').modal();
-    });
-    $('.modal-close').click(function () {
-        $('.modal').modal('close');
-    });
 
 
-    //PARCHE PUNTUAL
-    let profesores = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { rellenar: "ja" } });
 
-    console.log("datos Profesores", profesores);
 
-    var objDatosProfes = {};
-    $.each(profesores, function (id, value) {
-        objDatosProfes[value.nombre] = null;
-    });
-    $('input.autocomplete').autocomplete({
-        data: objDatosProfes,
-        onAutocomplete: function (val) {
-            alert("hola");
-            //resetear el campo y añadir a seletc
-        }
-    });
+
+
+
+
+
+
 
     /**Comproar si hay claustro activo y cambiarlos de esteado  */
     // desactivar claustro activos.

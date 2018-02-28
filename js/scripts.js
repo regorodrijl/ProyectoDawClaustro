@@ -128,58 +128,32 @@ $(document).ready(function () {
     });
     $('#botonNuevo').click(function () {
         $('#modalNuevo').modal();
+        cargarProfes();
     });
     $('.modal-close').click(function () {
         $('.modal').modal('close');
     });
 
-    let profesores = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { rellenar: "ja" } });
-    var objDatosProfes = {};
-    console.log(profesores)
-    $.each(profesores, function (id, value) {
-        objDatosProfes[value.nombre] = { id: value.id };
-        objDatosProfes[value.id]
-    });
-
-    $('input.autocomplete').autocomplete({
-        data: objDatosProfes,
-        onAutocomplete: function (val) {
-            //comprobar q no este ya y añadir     no dejar añadir 2 veces
-            // Control doble click para borrar!
-            $("#seleccion").append("<div>" + val + "</div>");
-        }
-    });
-
-
-
-
-
-
-
-
-
-
     // CREAR NUEVO CLAUSTRO
     $("#crearClaustro").click(function () {
         //comprobar si hay clautro activo para esa fecha.     
         console.log("cambio fecha " + $("#fecha").val());
-        $.ajax({
-            url: "./librerias/php/funciones.php",
-            type: 'post',
-            dataType: 'json',
-            data: { fecha: $("#fecha").val() },
-            success: function (fecha) {
-                if (fecha == "ok") {
-                    console.log("Se puede crear, Botón!");
-                    var profes = [];
-                    $("#selecProfe option:selected").each(function () {
-                        profes.push($(this).val());
+        debugger
+        if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#horaInicio").val() == "" && $("#horaFin").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
+            toast("Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.")
+        } else {
+            if ($("#fecha").val() != undefined && $("#fecha").val() !== '') {
+                let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { fecha: $("#fecha").val() } });
+                if (respuesta == "ok") {
+                    let profes = [];
+                    $("#seleccion").children().each(function (i, d) {
+                        profes.push(d.textContent);
                     });
                     console.log('cuantos profes: ' + profes.length);
-                    if ($("#tituloClaustro").val() && $("#fecha").val() == "" && $("#horaInicio").val() == "" && $("#horaFin").val() == "" && $("#curso").val() == "" && $("#orden").val() == "" && profes.length <= 0) {
-                        alert("Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso y Orden del Día.")
+                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#horaInicio").val() == "" || $("#horaFin").val() == "" || $("#curso").val() == "" || $("#orden").val() == "" || profes.length <= 0) {
+                        toast("Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.")
                     } else {
-                        var claustro = {
+                        let claustro = {
                             "titulo": $("#tituloClaustro").val(),
                             "dia": $("#fecha").val(),
                             "horaInicio": $("#horaInicio").val(),
@@ -189,34 +163,27 @@ $(document).ready(function () {
                             "observacion": $("#observacion").val(),
                             "profesores": profes
                         };
-                        $.ajax({
-                            url: "./librerias/php/funciones.php",
-                            type: 'post',
-                            dataType: 'json',
-                            data: { claustro: claustro },
-                            success: function (crea) {
-                                if (crea == "ko") {
-                                    alert("Faltan datos!");
-                                } else {
-                                    $("#tituloClaustro").val('');
-                                    $("#curso").val('');
-                                    $("#orden").val('');
-                                    $("#observacion").val('');
-                                    alert("Creado correctamente!");
-                                }
-                            }
-                        })
+                        let creacionClaustro = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { claustro: claustro } });
+                        if (creacionClaustro == "ko") {
+                            toast("Ha habido algún error!");
+                        } else {
+                            debugger
+                            $("#tituloClaustro").val('');
+                            $("#curso").val('');
+                            $("#orden").val('');
+                            $("#observacion").val('');
+                            toast("Creado correctamente!");
+                        }
                     }
                 } else {
-                    alert("No se puede crear, revise el día");
-                    console.log("No crear, respuesta fecha " + fecha + " variable crear" + crear);
+                    toast("No se puede crear, revise el día");
+                    console.log("error-> " + respuesta);
                 }
+            } else {
+                toast("Rellene el campo fecha");
             }
-        }).fail(function (error) {
-            console.log(error);
-        });
+        }
     });//fin botón CrearClaustro
-
 
 
 
@@ -373,19 +340,3 @@ $(document).ready(function () {
     });// fin historico
 });
 
-let respuestaAjax = "algo ha ido mal";
-function peticionAjax(ajax) {
-    $.ajax({
-        url: ajax.url,
-        type: ajax.tipo,
-        dataType: 'json',
-        data: ajax.datos,
-        async: false,
-        success: function (respuesta) {
-            respuestaAjax = respuesta;
-        }
-    }).fail(function (error) {
-        respuestaAjax = error;
-    });
-    return respuestaAjax;
-}

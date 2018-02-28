@@ -116,11 +116,11 @@
                             <label for="fecha">Día:</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" name="horaInicio" id="horaInicio" class="timepicker">
+                            <input type="text" name="horaInicio" id="horaInicio" required class="timepicker">
                             <label for="horaInicio">Hora Inicio:</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" name="horaFin" id="horaFin" class="timepicker">
+                            <input type="text" name="horaFin" id="horaFin" required class="timepicker">
                             <label for="horaFin">Hora Fin:</label>
                         </div>
                     </div>
@@ -134,7 +134,6 @@
                             <textarea id="observacion" class="form-control" rows="4" placeholder="Alguna observación?"></textarea>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col s6">
                             <div class="row">
@@ -149,12 +148,11 @@
                             <div id="seleccion"></div>
                         </div>
                     </div>
+                    <button id="crearClaustro" class="center-block btn waves-effect waves-light">Crear Claustro</button>
                 </form>
             </div>
         </div>
-        <button id="crearClaustro" class="center-block btn waves-effect waves-light">Crear Claustro</button>
     </div>
-
 
     <!-- Modal de historico -->
     <div id="modalHistorico" class="modal bottom-sheet">
@@ -192,6 +190,7 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
         </div>
     </div>
+    <div id="toast"></div>
     <footer>
         <p>&copy; 2018. Jose Luis Rego Rodríguez.
         </p>

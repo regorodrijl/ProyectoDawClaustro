@@ -23,9 +23,12 @@
 </head>
 
 <body>
-    <header class="center-align">
-        <h2 id="reset">ClaustroiNet</h2>
+    <header>
+        <span>IES San Clemente</span>
     </header>
+    <div class="center-align">
+        <h2 id="reset">ClaustroiNet</h2>
+    </div>
     <div class="cargando dn">
         <div class="preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
@@ -77,11 +80,12 @@
     <!-- Modal Trigger -->
     <div class="cuerpoApp">
         <div class="row">
-            <div class="col">
-                <button id="btnNuevo" href="#modalNuevo" class="waves-effect waves-light btn modal-trigger btn-outline-primary" type="button">Nuevo Claustro</button>
+            <div class="col s12 m6">
+                <button id="botonNuevo" href="#modalNuevo" class="waves-effect waves-light btn modal-trigger btn-outline-primary" type="button">Nuevo Claustro</button>
             </div>
-            <div class="col">
-                <button id="btnHistorico" href="#modalHistorico" class="waves-effect waves-light btn modal-trigger btn-outline-primary" type="button">Histórico de Claustros</button>
+            <div class="col s12 m6">
+                <button id="botonHistorico" href="#modalHistorico" class="waves-effect waves-light btn modal-trigger btn-outline-primary"
+                    type="button">Histórico de Claustros</button>
             </div>
         </div>
     </div>
@@ -109,40 +113,46 @@
                     <div class="row">
                         <div class="input-field col s4">
                             <input type="text" name="fecha" id="fecha" required class="datepicker">
-                            <label for="curso">Día:</label>
+                            <label for="fecha">Día:</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" name="fecha" id="horaInicio" class="timepicker">
-                            <label for="curso">Hora Inicio:</label>
+                            <input type="text" name="horaInicio" id="horaInicio" required class="timepicker">
+                            <label for="horaInicio">Hora Inicio:</label>
                         </div>
                         <div class="input-field col s4">
-                            <input type="text" name="fecha" id="horaFin" class="timepicker">
-                            <label for="curso">Hora Fin:</label>
+                            <input type="text" name="horaFin" id="horaFin" required class="timepicker">
+                            <label for="horaFin">Hora Fin:</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             <label>Orden del día:</label>
                             <textarea id="orden" class="form-control" rows="4" required placeholder="Escriba la orden del día."></textarea>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s6">
                             <label>Observaciones:</label>
                             <textarea id="observacion" class="form-control" rows="4" placeholder="Alguna observación?"></textarea>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" id="autocomplete-input" class="autocomplete">
+                                    <label for="autocomplete-input">Selección de profesores:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <label for="seleccion">Profesores Seleccionados:</label>
+                            <div id="seleccion"></div>
+                        </div>
+                    </div>
+                    <button id="crearClaustro" class="center-block btn waves-effect waves-light">Crear Claustro</button>
                 </form>
             </div>
-            <div id="selectProfesores">
-                <select class="selectpicker" required multiple id="selecProfe" data-live-search="true" title="Seleccione Profesor">
-                </select>
-            </div>
-            <div id="seleccion"></div>
         </div>
-        <button id="crearClaustro" class=".col-md-3 .col-md-offset-3 center-block">Crear Claustro</button>
     </div>
-
 
     <!-- Modal de historico -->
     <div id="modalHistorico" class="modal bottom-sheet">
@@ -180,8 +190,10 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
         </div>
     </div>
+    <div id="toast"></div>
     <footer>
-        <p>&copy; 2016 regorodrijl.</p>
+        <p>&copy; 2018. Jose Luis Rego Rodríguez.
+        </p>
     </footer>
     </div>
 </body>
@@ -196,5 +208,6 @@
 <script src="librerias/js/jquery.PrintArea.js"></script>
 <script language="JavaScript" type="text/javascript" src="librerias/libsExternas/materialize/js/materialize.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/scripts.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/funciones.js"></script>
 
 </html>

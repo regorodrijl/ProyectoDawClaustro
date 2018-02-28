@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="description" content="Proyecto DAW IES San Clemente. Claustro de Profesores.">
+    <meta name="author" content="Jose Luis Rego Rodríguez">
+    <link rel="icon" href="../../favicon.ico">
+    <title>ClaustroiNet</title>
+    <!-- Latest compiled and minified CSS -->
+    <!--  <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap.css">-->
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-theme.min.css"> -->
+    <!-- Normalize -->
+    <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/normalize.css">
+    <link rel="stylesheet" href="librerias/libsExternas/materialize/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="/ProyectoDawClaustro/css/ClaustroiNet.css">
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-select.min.css"> -->
+</head>
+
+<body>
+    <header>
+        <span>IES San Clemente</span>
+    </header>
+    <div class="valign-wrapper row login-box login">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <form>
+                <div class="card-content">
+                    <span class="card-title">Acceso a ClaustroiNet</span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="validate" />
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <label for="password">Contraseña: </label>
+                            <input type="password" class="validate" name="password" id="password" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <input type="button" class="btn green waves-effect waves-light" id='loginRegistro' value="Registrate">
+                    <input type="submit" class="btn green waves-effect waves-light" value="Login">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="valign-wrapper row login-box registro">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <form>
+                <div class="card-content">
+                    <span class="card-title">Registro a ClaustroiNet</span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="validate" id="usuarioRegistro" />
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <label for="password">Contraseña: </label>
+                            <input type="password" class="validate" name="password" id="passwordRegistro" />
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <label for="email">Email: </label>
+                            <input type="email" class="validate" name="email" id="emailRegistro" />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <input type="button" class="btn red waves-effect waves-light" id="cancelarRegistro" value="Cancelar">
+
+                    <input type="submit" class="btn green waves-effect waves-light" value="Registrarse">
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2018. Jose Luis Rego Rodríguez.
+        </p>
+    </footer>
+    </div>
+</body>
+<!-- script  -->
+<!-- jQuery CDN versión 2.2.4 ya que bootstrap no sopeorta la 3 -->
+<script language="JavaScript" src="/ProyectoDawClaustro/librerias/libsExternas/jQuery/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap.min.js"></script> -->
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap-select.min.js"></script> -->
+<!-- Libreria para imprimir -->
+<script src="librerias/js/jquery.PrintArea.js"></script>
+<script language="JavaScript" type="text/javascript" src="librerias/libsExternas/materialize/js/materialize.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/scripts.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/funciones.js"></script>
+
+</html>

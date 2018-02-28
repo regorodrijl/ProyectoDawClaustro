@@ -42,8 +42,44 @@ table {
 }
 
 .cuerpoApp {
-	width: 37%;
-	margin: 0 auto;
+	text-align: center;
+}
+
+header {
+	height: 80px;
+	background: darkgrey;
+	margin-bottom: 20px;
+}
+
+header span {
+	margin: 20px;
+	line-height: 5;
+	text-transform: uppercase;
+}
+
+i.material-icons.prefix {
+	line-height: 1.5;
+}
+
+.registro {
+	display: none;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	border-top: 1px solid;
+	width: 100%;
+	text-align: right;
+	padding-right: 20px;
+}
+
+.row {
+	margin-bottom: 5px!important;
+}
+
+#crearClaustro {
+	display: block!important;
 }
 
 /************************************************
@@ -87,7 +123,8 @@ table {
 }
 
 .modal.bottom-sheet {
-	max-height: 65%!important;
+	height: 100%;
+	max-height: 80%!important;
 }
 
 .modal .discard {
@@ -116,4 +153,79 @@ table {
 
 /************************************************
 					Fin	Modal
+************************************************/
+
+/************************************************
+					Toast
+************************************************/
+
+#toast {
+	visibility: hidden;
+	max-width: 450px;
+	margin: 0px auto;
+	background-color: red;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1005;
+	left: 33%;
+	bottom: 30px;
+}
+
+#toast.show {
+	visibility: visible;
+	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animaciones para poner/quitar toast */
+
+@-webkit-keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@keyframes fadein {
+	from {
+		bottom: 0;
+		opacity: 0;
+	}
+	to {
+		bottom: 30px;
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+@keyframes fadeout {
+	from {
+		bottom: 30px;
+		opacity: 1;
+	}
+	to {
+		bottom: 0;
+		opacity: 0;
+	}
+}
+
+/************************************************
+					FIN Toast
 ************************************************/

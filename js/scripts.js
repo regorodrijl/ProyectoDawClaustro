@@ -140,7 +140,7 @@ $(document).ready(function () {
         console.log("cambio fecha " + $("#fecha").val());
         debugger
         if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#horaInicio").val() == "" && $("#horaFin").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
-            toast("Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.")
+            toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
         } else {
             if ($("#fecha").val() != undefined && $("#fecha").val() !== '') {
                 let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { fecha: $("#fecha").val() } });
@@ -151,7 +151,7 @@ $(document).ready(function () {
                     });
                     console.log('cuantos profes: ' + profes.length);
                     if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#horaInicio").val() == "" || $("#horaFin").val() == "" || $("#curso").val() == "" || $("#orden").val() == "" || profes.length <= 0) {
-                        toast("Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.")
+                        toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
                     } else {
                         let claustro = {
                             "titulo": $("#tituloClaustro").val(),
@@ -165,22 +165,22 @@ $(document).ready(function () {
                         };
                         let creacionClaustro = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { claustro: claustro } });
                         if (creacionClaustro == "ko") {
-                            toast("Ha habido algún error!");
+                            toast({ msg: "Ha habido algún error!" });
                         } else {
                             debugger
                             $("#tituloClaustro").val('');
                             $("#curso").val('');
                             $("#orden").val('');
                             $("#observacion").val('');
-                            toast("Creado correctamente!");
+                            toast({ msg: "Creado correctamente!" });
                         }
                     }
                 } else {
-                    toast("No se puede crear, revise el día");
+                    toast({ msg: "No se puede crear, revise el día" });
                     console.log("error-> " + respuesta);
                 }
             } else {
-                toast("Rellene el campo fecha");
+                toast({ msg: "Rellene el campo fecha" });
             }
         }
     });//fin botón CrearClaustro
@@ -228,7 +228,7 @@ $(document).ready(function () {
         debugger
         console.log("respuesta ajax", respuesta);
         //Procesamos datos
-        let tabla = "<table id='tabla' border='1px'><tr><th>Título</th><th>Día</th><th>Cursos</th></tr>";
+        let tabla = "<table id='tabla' border='1px'><tr class='cabezaTabla'><th>Título</th><th>Día</th><th>Cursos</th></tr>";
         for (let i in respuesta) {
             tabla += "<tr id=" + respuesta[i].id + "><td>" + respuesta[i].titulo + "</td><td>" + respuesta[i].dia + "</td><td>" + respuesta[i].curso + "</td></tr>";
         }
@@ -257,12 +257,12 @@ $(document).ready(function () {
                 success: function (respuesta) {
                     profesPDF = [];
                     console.log("datos  ", respuesta);
-                    datos = "<div id='datosPHP'>";
-                    datos += "<p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p>";
-                    datos += '<div class="row"><div class="col-md-5"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col-md-5"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div></div>';
-                    datos += '<div class="row"><div class="col-md-5"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col-md-5"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div></div>';
-                    datos += '<p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p>';
-                    datos += "<strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
+                    datos = "<div id='datosPHP' class='row'>";
+                    datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
+                    datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
+                    datos += '<div class="col"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div>';
+                    datos += '<div class="col"><p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p></div><div class="col"><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p></div>';
+                    datos += "</div><div class='row'><div class='col'><strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
 
                     for (let i = 0; i < respuesta[1].length; i++) {
                         console.log("FIRMA", respuesta[1][i].firma.length);

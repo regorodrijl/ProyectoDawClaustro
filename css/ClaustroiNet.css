@@ -82,6 +82,16 @@ footer {
 	display: block!important;
 }
 
+.cabezaTabla, .cabezaTabla:hover {
+	background: darkgrey;
+	color: white;
+}
+
+tr:hover {
+	background: lightslategrey;
+	color: white;
+}
+
 /************************************************
 					Botones
 ************************************************/

@@ -133,7 +133,10 @@ $(document).ready(function () {
     $('.modal-close').click(function () {
         $('.modal').modal('close');
     });
-
+    $('.modal-overlayClautro').click(function () {
+        $('.modal-overlayClautro').hide();
+        $('.modalClautro').hide();
+    });
     // CREAR NUEVO CLAUSTRO
     $("#crearClaustro").click(function () {
         //comprobar si hay clautro activo para esa fecha.     
@@ -225,7 +228,6 @@ $(document).ready(function () {
         $('#modalHistorico').modal();
         //Vamos hace peticion ajax;
         let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historicos: "Claustro historico" } });
-        debugger
         console.log("respuesta ajax", respuesta);
         //Procesamos datos
         let tabla = "<table id='tabla' border='1px'><tr class='cabezaTabla'><th>Título</th><th>Día</th><th>Cursos</th></tr>";
@@ -248,6 +250,7 @@ $(document).ready(function () {
             // $("#guardar").hide();
             // $("#editar").show();
             // $("#borrar").show();
+
             let x = $(this).parent("tr");
             $.ajax({
                 url: "./librerias/php/funciones.php",
@@ -257,24 +260,41 @@ $(document).ready(function () {
                 success: function (respuesta) {
                     profesPDF = [];
                     console.log("datos  ", respuesta);
-                    datos = "<div id='datosPHP' class='row'>";
-                    datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
-                    datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
-                    datos += '<div class="col"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div>';
-                    datos += '<div class="col"><p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p></div><div class="col"><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p></div>';
-                    datos += "</div><div class='row'><div class='col'><strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
-
-                    for (let i = 0; i < respuesta[1].length; i++) {
-                        console.log("FIRMA", respuesta[1][i].firma.length);
-                        if (respuesta[1][i].firma.length <= 23) {
-                            profesPDF.push([respuesta[2][i].nombre]);
-                        } else {
-                            profesPDF.push([respuesta[2][i].nombre, respuesta[1][i].firma]);
-                        }
-                        datos += '<tr><td align="center" valign="middle" style="font-weight:bold">  ' + respuesta[2][i].nombre + '  </td><td align="center" valign="middle"> <img src="' + respuesta[1][i].firma + '" alt="Sin Firma" width="100" height="50"></td></tr>';
-                    }
-                    datos += "</table></div></div>";
-                    $("#datosClaustroHistorico").html(datos);
+                    let objeto = {};
+                    objeto.titulo = respuesta[0].titulo;
+                    objeto.curso = respuesta[0].curso;
+                    objeto.dia = respuesta[0].dia;
+                    objeto.horaInicio = respuesta[0].horaInicio;
+                    objeto.horaFin = respuesta[0].horaFin;
+                    objeto.orden = respuesta[0].orden;
+                    objeto.observacion = respuesta[0].observacion;
+                    objeto.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?modalClaustro');
+                    let cadena = reemplazaMostachos(objeto);
+                    $('#modalClautro').html(cadena);
+                    $("#modalClautro").show();
+                    $(".modal-overlayClautro").show();
+                    $('.cerrarModalClaustro').click(function () {
+                        $('.modal-overlayClautro').hide();
+                        $('.modalClautro').hide();
+                    });
+                    //datos = "<div id='datosPHP' class='row'>";
+                    // datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
+                    // datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
+                    // datos += '<div class="col"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div>';
+                    // datos += '<div class="col"><p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p></div><div class="col"><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p></div>';
+                    // datos += "</div><div class='row'><div class='col'><strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
+                    //*********************************************falta intertar tabla dentro de modal
+                    // for (let i = 0; i < respuesta[1].length; i++) {
+                    //     console.log("FIRMA", respuesta[1][i].firma.length);
+                    //     if (respuesta[1][i].firma.length <= 23) {
+                    //         profesPDF.push([respuesta[2][i].nombre]);
+                    //     } else {
+                    //         profesPDF.push([respuesta[2][i].nombre, respuesta[1][i].firma]);
+                    //     }
+                    //     datos += '<tr><td align="center" valign="middle" style="font-weight:bold">  ' + respuesta[2][i].nombre + '  </td><td align="center" valign="middle"> <img src="' + respuesta[1][i].firma + '" alt="Sin Firma" width="100" height="50"></td></tr>';
+                    // }
+                    // datos += "</table></div></div>";
+                    // $("#datosClaustroHistorico").html(datos);
                     // para evitar problemas con id
                     $("#borrar").off("click");
                     // si hace click en borrar!

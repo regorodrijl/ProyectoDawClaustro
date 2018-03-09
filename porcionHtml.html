@@ -1,0 +1,89 @@
+<div>
+    <div id='datosPHP' class='row modalClaustro'>
+        <button value="Cancelar" class="discard cerrarModalClaustro btn waves-effect waves-light">
+            <i class="material-icons">close</i>
+        </button>
+        <div class='col'>
+            <p>
+                <label>
+                    <strong>Titulo:&nbsp; </strong>
+                </label>
+                <input id='t' disabled value='{{titulo}}' />
+            </p>
+        </div>
+        <div class="col">
+            <p>
+                <label>
+                    <strong>Curso:&nbsp; </strong>
+                </label>
+                <input id="c" disabled value="{{curso}}" />
+            </p>
+        </div>
+        <div class="col">
+            <p>
+                <label>
+                    <strong>Día:&nbsp; </strong>
+                </label>
+                <input id="d" disabled value="{{dia}}" />
+            </p>
+        </div>
+        <div class="col">
+            <p>
+                <label>
+                    <strong>Hora Inicio:&nbsp; </strong>
+                </label>
+                <input id="hi" disabled value="{{horaInicio}}" />
+            </p>
+        </div>
+        <div class="col">
+            <p>
+                <label>
+                    <strong>Hora Fin:&nbsp; </strong>
+                </label>
+                <input id="hf" disabled value="{{horaFin}}" />
+            </p>
+        </div>
+        <div class="col">
+            <p class="lead">
+                <strong>Orden del día: </strong>
+                <article>
+                    <textarea id="or" rows="4" cols="75" readonly>{{orden}}</textarea>
+                </article>
+            </p>
+        </div>
+        <div class="col">
+            <p class="lead">
+                <strong>Observaciones realizadas: </strong>
+                <article>
+                    <textarea id="ob" rows="4" cols="75" readonly>{{observacion}}</textarea>
+                </article>
+            </p>
+        </div>
+
+        <div class='row'>
+            <div class='col'>
+                <strong>Número de Profesores asistentes: </strong>
+                <br>
+                <div STYLE='background-color:WHITE' align='center'>
+                    <table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'></table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <div class="col">
+                    <button type="button" id="imprimir" class="btn btn-success center-block">Imprimir!</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="editar" class="btn btn-primary center-block">Editar!</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="borrar" class="btn btn-danger center-block">Borrar!</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="guardar" class="btn btn-info center-block">Guardar!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

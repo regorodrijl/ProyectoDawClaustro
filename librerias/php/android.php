@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$hoy=date('Y-m-d');
 		$arrayDatos=[];
 		$noHay=[];
-		$stmt = $pdo->prepare('select * from claustro where activo=true order by id DESC;');
+		$stmt = $pdo->prepare('select * from claustro where activo=true and dia = CURDATE() order by id DESC;');
 		$stmt->execute();
 		$filas=$stmt->fetchAll(PDO::FETCH_ASSOC);
 

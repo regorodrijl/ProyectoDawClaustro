@@ -175,7 +175,7 @@ $(document).ready(function () {
                             $("#curso").val('');
                             $("#orden").val('');
                             $("#observacion").val('');
-                            toast({ msg: "Creado correctamente!" });
+                            toast({ msg: "Creado correctamente! RECUERDE! sólo estará activo el mismo día!" });
                         }
                     }
                 } else {

@@ -131,7 +131,7 @@ $(document).ready(function () {
         cargarProfes();
     });
     $('.modal-close').click(function () {
-        $('.modal').modal('close');
+        $('.modal').hide();
     });
     $('.modal-overlayClautro').click(function () {
         $('.modal-overlayClautro').hide();
@@ -175,13 +175,19 @@ $(document).ready(function () {
                             $("#curso").val('');
                             $("#orden").val('');
                             $("#observacion").val('');
+                            $("#fecha").val('');
+                            $("#horaInicio").val('');
+                            $("#horaFin").val('');
                             toast({ msg: "Creado correctamente! RECUERDE! sólo estará activo el mismo día!" });
+                            $('.modal').hide();
+
                         }
                     }
                 } else {
                     toast({ msg: "No se puede crear, revise el día" });
                     console.log("error-> " + respuesta);
                 }
+                $('#modalHistorico').modal();
             } else {
                 toast({ msg: "Rellene el campo fecha" });
             }
@@ -250,112 +256,110 @@ $(document).ready(function () {
             // $("#guardar").hide();
             // $("#editar").show();
             // $("#borrar").show();
-
             let x = $(this).parent("tr");
-            $.ajax({
-                url: "./librerias/php/funciones.php",
-                type: 'post',
-                dataType: 'json',
-                data: { historico: x.attr('id') },
-                success: function (respuesta) {
-                    profesPDF = [];
-                    console.log("datos  ", respuesta);
-                    let objeto = {};
-                    objeto.titulo = respuesta[0].titulo;
-                    objeto.curso = respuesta[0].curso;
-                    objeto.dia = respuesta[0].dia;
-                    objeto.horaInicio = respuesta[0].horaInicio;
-                    objeto.horaFin = respuesta[0].horaFin;
-                    objeto.orden = respuesta[0].orden;
-                    objeto.observacion = respuesta[0].observacion;
-                    objeto.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?modalClaustro');
-                    let cadena = reemplazaMostachos(objeto);
-                    $('#modalClautro').html(cadena);
-                    $("#modalClautro").show();
-                    $(".modal-overlayClautro").show();
-                    $('.cerrarModalClaustro').click(function () {
-                        $('.modal-overlayClautro').hide();
-                        $('.modalClautro').hide();
+            let respuestaTabla = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historico: x.attr('id') } });
+            if (respuestaTabla.length != undefined) {
+                debugger
+                profesPDF = [];
+                console.log("datos  ", respuestaTabla);
+                let objeto = {};
+                objeto.titulo = respuestaTabla[0].titulo;
+                objeto.curso = respuestaTabla[0].curso;
+                objeto.dia = respuestaTabla[0].dia;
+                objeto.horaInicio = respuestaTabla[0].horaInicio;
+                objeto.horaFin = respuestaTabla[0].horaFin;
+                objeto.orden = respuestaTabla[0].orden;
+                objeto.observacion = respuestaTabla[0].observacion;
+                objeto.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?modalClaustro');
+                let cadena = reemplazaMostachos(objeto);
+                $('#modalClautro').html(cadena);
+                $("#modalClautro").show();
+                $(".modal-overlayClautro").show();
+                $('.cerrarModalClaustro').click(function () {
+                    $('.modal-overlayClautro').hide();
+                    $('.modalClautro').hide();
+                });
+                //datos = "<div id='datosPHP' class='row'>";
+                // datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
+                // datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
+                // datos += '<div class="col"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div>';
+                // datos += '<div class="col"><p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p></div><div class="col"><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p></div>';
+                // datos += "</div><div class='row'><div class='col'><strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
+                //*********************************************falta intertar tabla dentro de modal
+                // for (let i = 0; i < respuesta[1].length; i++) {
+                //     console.log("FIRMA", respuesta[1][i].firma.length);
+                //     if (respuesta[1][i].firma.length <= 23) {
+                //         profesPDF.push([respuesta[2][i].nombre]);
+                //     } else {
+                //         profesPDF.push([respuesta[2][i].nombre, respuesta[1][i].firma]);
+                //     }
+                //     datos += '<tr><td align="center" valign="middle" style="font-weight:bold">  ' + respuesta[2][i].nombre + '  </td><td align="center" valign="middle"> <img src="' + respuesta[1][i].firma + '" alt="Sin Firma" width="100" height="50"></td></tr>';
+                // }
+                // datos += "</table></div></div>";
+                // $("#datosClaustroHistorico").html(datos);
+                // para evitar problemas con id
+                $("#borrar").off("click");
+                // si hace click en borrar!
+                $("#borrar").click(function () {
+                    console.log("dentro de borrar, id:", respuesta[0].id);
+                    $.ajax({
+                        url: "./librerias/php/funciones.php",
+                        type: 'post',
+                        dataType: 'json',
+                        data: { borrar: respuesta[0].id },
+                        success: function (r) {
+                            if (r == "ok") { //respuesta[0].id
+                                $("#" + respuesta[0].id + " td").fadeOut(1000);
+                                $("#datosClaustroHistorico").html("");
+                                $("#editar").hide();
+                                $("#borrar").hide();
+                                $("#guardar").hide();
+                                $("#imprimir").hide();
+                                alert("borrado correctamente!");
+                            } else alert("Error al borrar un claustro! id: " + r);
+                        },
+                        error: function (xhr, status, error) {
+                            alert(xhr.responseText);
+                            console.log(xhr, status, error);
+                        }
+                    }).fail(function (error) {
+                        console.log(error);
                     });
-                    //datos = "<div id='datosPHP' class='row'>";
-                    // datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
-                    // datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
-                    // datos += '<div class="col"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div>';
-                    // datos += '<div class="col"><p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p></div><div class="col"><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p></div>';
-                    // datos += "</div><div class='row'><div class='col'><strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
-                    //*********************************************falta intertar tabla dentro de modal
-                    // for (let i = 0; i < respuesta[1].length; i++) {
-                    //     console.log("FIRMA", respuesta[1][i].firma.length);
-                    //     if (respuesta[1][i].firma.length <= 23) {
-                    //         profesPDF.push([respuesta[2][i].nombre]);
-                    //     } else {
-                    //         profesPDF.push([respuesta[2][i].nombre, respuesta[1][i].firma]);
-                    //     }
-                    //     datos += '<tr><td align="center" valign="middle" style="font-weight:bold">  ' + respuesta[2][i].nombre + '  </td><td align="center" valign="middle"> <img src="' + respuesta[1][i].firma + '" alt="Sin Firma" width="100" height="50"></td></tr>';
-                    // }
-                    // datos += "</table></div></div>";
-                    // $("#datosClaustroHistorico").html(datos);
-                    // para evitar problemas con id
-                    $("#borrar").off("click");
-                    // si hace click en borrar!
-                    $("#borrar").click(function () {
-                        console.log("dentro de borrar, id:", respuesta[0].id);
-                        $.ajax({
-                            url: "./librerias/php/funciones.php",
-                            type: 'post',
-                            dataType: 'json',
-                            data: { borrar: respuesta[0].id },
-                            success: function (r) {
-                                if (r == "ok") { //respuesta[0].id
-                                    $("#" + respuesta[0].id + " td").fadeOut(1000);
-                                    $("#datosClaustroHistorico").html("");
-                                    $("#editar").hide();
-                                    $("#borrar").hide();
-                                    $("#guardar").hide();
-                                    $("#imprimir").hide();
-                                    alert("borrado correctamente!");
-                                } else alert("Error al borrar un claustro! id: " + r);
-                            },
-                            error: function (xhr, status, error) {
-                                alert(xhr.responseText);
-                                console.log(xhr, status, error);
-                            }
-                        }).fail(function (error) {
-                            console.log(error);
-                        });
+                });
+                $("#editar").click(function () {
+                    $("#guardar").show();
+                    $("textarea").attr("readonly", false);
+                    $("input").prop('disabled', false);
+                });
+                $("#guardar").click(function () {
+                    var Gclaustro = {
+                        "id": respuesta[0].id,
+                        "titulo": $("#t").val(),
+                        "dia": $("#d").val(),
+                        "horaInicio": $("#hi").val(),
+                        "horaFin": $("#hf").val(),
+                        "curso": $("#c").val(),
+                        "orden": $("#or").val(),
+                        "observacion": $("#ob").val(),
+                    };
+                    console.log(Gclaustro);
+                    // falta el selct con los profes
+                    $.ajax({
+                        url: "./librerias/php/funciones.php",
+                        type: 'post',
+                        dataType: 'json',
+                        data: { actualizarClaustro: Gclaustro },
+                        success: function (respuesta) {
+                            if (respuesta == "ok") {
+                                alert("Actualizado correctamente!");
+                            } else alert("Error al crear un claustro!");
+                        }
                     });
-                    $("#editar").click(function () {
-                        $("#guardar").show();
-                        $("textarea").attr("readonly", false);
-                        $("input").prop('disabled', false);
-                    });
-                    $("#guardar").click(function () {
-                        var Gclaustro = {
-                            "id": respuesta[0].id,
-                            "titulo": $("#t").val(),
-                            "dia": $("#d").val(),
-                            "horaInicio": $("#hi").val(),
-                            "horaFin": $("#hf").val(),
-                            "curso": $("#c").val(),
-                            "orden": $("#or").val(),
-                            "observacion": $("#ob").val(),
-                        };
-                        console.log(Gclaustro);
-                        // falta el selct con los profes
-                        $.ajax({
-                            url: "./librerias/php/funciones.php",
-                            type: 'post',
-                            dataType: 'json',
-                            data: { actualizarClaustro: Gclaustro },
-                            success: function (respuesta) {
-                                if (respuesta == "ok") {
-                                    alert("Actualizado correctamente!");
-                                } else alert("Error al crear un claustro!");
-                            }
-                        });
-                    });
-                }
-            });// fin peticion ajax click en tabla
+                });
+            } else {
+                debugger
+                console.log('Error', respuestaTabla);
+            };// fin Botón Atualizar Profes;// fin peticion ajax click en tabla
         });
     });// fin historico
 });

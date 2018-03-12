@@ -2,15 +2,15 @@
 # Conectamos a la base de datos
 #'regorodri.noip.me'
 
-$host='localhost';
-$dbname='claustro';
-$user='regorodri';
-$pass='Nahyr17.7';
+// $host='localhost';
+// $dbname='claustro';
+// $user='regorodri';
+// $pass='Nahyr17.7';
 //LOCAL Xammp
-//$host= 'localhost';
-//$dbname='claustro';
-//$user='root';
-//$pass='';
+$host= 'localhost';
+$dbname='claustro';
+$user='root';
+$pass='';
 
 try {
 	$pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);

@@ -83,11 +83,12 @@ $(document).ready(function () {
 
     //IMPRIMIR
     $("#imprimir").click(function () {
+        debugger
         $('div#contenidoAjax').show();
-        var datosPDF = { "title": $("#t").val(), "date": $("#d").val(), "curso": $("#c").val(), "hi": $("#hi").val(), "hf": $("#hf").val(), "or": $("#or").val(), "ob": $("#ob").val(), "firmas": profesPDF };
+        var datosPDF = { "title": $("#tituloEdit").val(), "date": $("#diaEdit").val(), "curso": $("#cursoEdit").val(), "hi": $("#hiEdit").val(), "hf": $("#hfEdit").val(), "or": $("#orEdit").val(), "ob": $("#obEdit").val(), "firmas": profesPDF };
 
         console.log("DATOS A ENVIAR:", datosPDF);
-        var name = $("#d").val();
+        var name = $("#diaEdit").val();
         $.ajax({
             type: "POST",
             dataType: 'text',
@@ -258,18 +259,18 @@ $(document).ready(function () {
             // $("#borrar").show();
             let x = $(this).parent("tr");
             let respuestaTabla = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historico: x.attr('id') } });
-            if (respuestaTabla.length != undefined) {
+            if (respuestaTabla.status == 'ok') {
                 debugger
                 profesPDF = [];
                 console.log("datos  ", respuestaTabla);
                 let objeto = {};
-                objeto.titulo = respuestaTabla[0].titulo;
-                objeto.curso = respuestaTabla[0].curso;
-                objeto.dia = respuestaTabla[0].dia;
-                objeto.horaInicio = respuestaTabla[0].horaInicio;
-                objeto.horaFin = respuestaTabla[0].horaFin;
-                objeto.orden = respuestaTabla[0].orden;
-                objeto.observacion = respuestaTabla[0].observacion;
+                objeto.titulo = respuestaTabla.result[0].titulo;
+                objeto.curso = respuestaTabla.result[0].curso;
+                objeto.dia = respuestaTabla.result[0].dia;
+                objeto.horaInicio = respuestaTabla.result[0].horaInicio;
+                objeto.horaFin = respuestaTabla.result[0].horaFin;
+                objeto.orden = respuestaTabla.result[0].orden;
+                objeto.observacion = respuestaTabla.result[0].observacion;
                 objeto.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?modalClaustro');
                 let cadena = reemplazaMostachos(objeto);
                 $('#modalClautro').html(cadena);
@@ -279,6 +280,25 @@ $(document).ready(function () {
                     $('.modal-overlayClautro').hide();
                     $('.modalClautro').hide();
                 });
+                let objFirmas = {};
+                $('.tablaFirmas').html("");
+                for (let i = 0; i < respuestaTabla.result[1].length; i++) {
+                    objFirmas.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?filaTablaFirma');
+                    console.log("FIRMA", respuestaTabla.result[1][i].firma.length);
+                    if (respuestaTabla.result[1][i].firma.length <= 23) {
+                        objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
+                        //profesPDF.push([respuestaTabla.result[2][i].nombre]);
+                    } else {
+                        objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
+                        objFirmas.firma = [respuestaTabla.result[1][i].firma];
+                        //profesPDF.push([respuestaTabla.result[2][i].nombre, respuestaTabla.result[1][i].firma]);
+                    }
+                    let cadenaFirmas = reemplazaMostachos(objFirmas);
+                    $('.tablaFirmas').html(cadenaFirmas);
+                }
+
+
+
                 //datos = "<div id='datosPHP' class='row'>";
                 // datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
                 // datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
@@ -334,13 +354,13 @@ $(document).ready(function () {
                 $("#guardar").click(function () {
                     var Gclaustro = {
                         "id": respuesta[0].id,
-                        "titulo": $("#t").val(),
-                        "dia": $("#d").val(),
-                        "horaInicio": $("#hi").val(),
-                        "horaFin": $("#hf").val(),
-                        "curso": $("#c").val(),
-                        "orden": $("#or").val(),
-                        "observacion": $("#ob").val(),
+                        "titulo": $("#tituloEdit").val(),
+                        "dia": $("#diaEdit").val(),
+                        "horaInicio": $("#hiEdit").val(),
+                        "horaFin": $("#hfEdit").val(),
+                        "curso": $("#cursoEdit").val(),
+                        "orden": $("#orEdit").val(),
+                        "observacion": $("#obEdit").val(),
                     };
                     console.log(Gclaustro);
                     // falta el selct con los profes

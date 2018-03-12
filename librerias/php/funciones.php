@@ -191,18 +191,26 @@ if(!empty($_POST['historico'])){
 							array_push($prof,array("id"=>$filaP["id"],"nombre"=>$filaP["nombre"],"email"=>$filaP["email"]));
 						}
 					}
-				}				
+				}		
+				//Claustro con firma		
 				array_push($arrayDatos,$dat,$prof);
-				echo json_encode($arrayDatos);
+				$jsondata['status'] = "ok";
+				$jsondata['result'] = $arrayDatos;
+				echo json_encode($jsondata);
 			}else{
-				//echo json_encode($arrayDatos);
+				$jsondata['status'] = "ok";
+				$jsondata['result'] = $arrayDatos;
+				echo json_encode($jsondata);
 			}
 		}else{
 			$arry=$stmt->errorInfo();
 			$errorCode=$stmt->errorCode();
-			print_r(" error Varios Profes---> ".$arry);
+			print_r("error Varios Profes---> ".$arry);
 			print_r($arry);
 			print_r($errorCode);
+			$jsondata['status'] = "ko";
+			$jsondata['result'] = "error Varios Profes---> " . $arry . " Código Error: " . $errorCode;
+			echo json_encode($jsondata);
 		}
 		//echo json_encode($arrayDatos);
 	}

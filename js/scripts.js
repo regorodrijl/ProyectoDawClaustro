@@ -280,22 +280,27 @@ $(document).ready(function () {
                     $('.modal-overlayClautro').hide();
                     $('.modalClautro').hide();
                 });
-                let objFirmas = {};
+
                 $('.tablaFirmas').html("");
-                for (let i = 0; i < respuestaTabla.result[1].length; i++) {
-                    objFirmas.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?filaTablaFirma');
-                    console.log("FIRMA", respuestaTabla.result[1][i].firma.length);
-                    if (respuestaTabla.result[1][i].firma.length <= 23) {
-                        objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
-                        //profesPDF.push([respuestaTabla.result[2][i].nombre]);
-                    } else {
-                        objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
-                        objFirmas.firma = [respuestaTabla.result[1][i].firma];
-                        //profesPDF.push([respuestaTabla.result[2][i].nombre, respuestaTabla.result[1][i].firma]);
+                debugger
+                if (respuestaTabla.result[1] != undefined) {
+                    let objFirmas = {};
+                    for (let i = 0; i < respuestaTabla.result[1].length; i++) {
+                        objFirmas.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?filaTablaFirma');
+                        console.log("FIRMA", respuestaTabla.result[1][i].firma.length);
+                        if (respuestaTabla.result[1][i].firma.length <= 23) {
+                            objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
+                            //profesPDF.push([respuestaTabla.result[2][i].nombre]);
+                        } else {
+                            objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
+                            objFirmas.firma = [respuestaTabla.result[1][i].firma];
+                            //profesPDF.push([respuestaTabla.result[2][i].nombre, respuestaTabla.result[1][i].firma]);
+                        }
+                        let cadenaFirmas = reemplazaMostachos(objFirmas);
+                        $('.tablaFirmas').append(cadenaFirmas);
                     }
-                    let cadenaFirmas = reemplazaMostachos(objFirmas);
-                    $('.tablaFirmas').html(cadenaFirmas);
                 }
+
 
 
 

@@ -279,3 +279,16 @@ tr:hover {
 /************************************************
 					FIN Toast
 ************************************************/
+
+.cards-container {
+	-webkit-column-count: 3;
+	-moz-column-count: 3;
+	column-count: 3;
+}
+
+.cards-container .card {
+	display: inline-block;
+	overflow: visible;
+}
+
+/*https://codepen.io/mike-north/pen/MwVoYp?editors=1100*/

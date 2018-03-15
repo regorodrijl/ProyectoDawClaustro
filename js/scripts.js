@@ -253,14 +253,10 @@ $(document).ready(function () {
         });
 
         $("#tabla tr td").click(function () {
-            // $("#imprimir").show();
-            // $("#guardar").hide();
-            // $("#editar").show();
-            // $("#borrar").show();
+            let meClick = $(this);
             let x = $(this).parent("tr");
             let respuestaTabla = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historico: x.attr('id') } });
             if (respuestaTabla.status == 'ok') {
-                debugger
                 profesPDF = [];
                 console.log("datos  ", respuestaTabla);
                 let objeto = {};
@@ -282,7 +278,6 @@ $(document).ready(function () {
                 });
 
                 $('.tablaFirmas').html("");
-                debugger
                 if (respuestaTabla.result[1] != undefined) {
                     let objFirmas = {};
                     for (let i = 0; i < respuestaTabla.result[1].length; i++) {
@@ -290,66 +285,29 @@ $(document).ready(function () {
                         console.log("FIRMA", respuestaTabla.result[1][i].firma.length);
                         if (respuestaTabla.result[1][i].firma.length <= 23) {
                             objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
-                            //profesPDF.push([respuestaTabla.result[2][i].nombre]);
                         } else {
                             objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
                             objFirmas.firma = [respuestaTabla.result[1][i].firma];
-                            //profesPDF.push([respuestaTabla.result[2][i].nombre, respuestaTabla.result[1][i].firma]);
                         }
                         let cadenaFirmas = reemplazaMostachos(objFirmas);
                         $('.tablaFirmas').append(cadenaFirmas);
                     }
                 }
-
-
-
-
-                //datos = "<div id='datosPHP' class='row'>";
-                // datos += "<div class='col'><p><label><strong>Titulo:&nbsp; </strong></label><input id='t' disabled value='" + respuesta[0].titulo + "'/></p></div>";
-                // datos += '<div class="col"><p><label><strong>Curso:&nbsp; </strong></label><input id="c" disabled value="' + respuesta[0].curso + '"/></p></div><div class="col"><p><label><strong>Día:&nbsp; </strong></label><input id="d" disabled value="' + respuesta[0].dia + '"/></p></div>';
-                // datos += '<div class="col"><p><label><strong>Hora Inicio:&nbsp; </strong></label><input id="hi" disabled value="' + respuesta[0].horaInicio + '"/></p></div><div class="col"><p><label><strong>Hora Fin:&nbsp; </strong></label><input id="hf" disabled value="' + respuesta[0].horaFin + '"/></p></div>';
-                // datos += '<div class="col"><p class="lead"><strong>Orden del día: </strong><article><textarea id="or" rows="4"  cols="75" readonly >' + respuesta[0].orden + '</textarea></article></p></div><div class="col"><p class="lead"><strong>Observaciones realizadas: </strong><article><textarea id="ob" rows="4"  cols="75" readonly >' + respuesta[0].observacion + '</textarea></article></p></div>';
-                // datos += "</div><div class='row'><div class='col'><strong>Número de Profesores asistentes: </strong><br><div STYLE='background-color:WHITE' align='center'><table cellspacing='10' cellpadding='pixels' border='1px' style=' width: 100%'>";
-                //*********************************************falta intertar tabla dentro de modal
-                // for (let i = 0; i < respuesta[1].length; i++) {
-                //     console.log("FIRMA", respuesta[1][i].firma.length);
-                //     if (respuesta[1][i].firma.length <= 23) {
-                //         profesPDF.push([respuesta[2][i].nombre]);
-                //     } else {
-                //         profesPDF.push([respuesta[2][i].nombre, respuesta[1][i].firma]);
-                //     }
-                //     datos += '<tr><td align="center" valign="middle" style="font-weight:bold">  ' + respuesta[2][i].nombre + '  </td><td align="center" valign="middle"> <img src="' + respuesta[1][i].firma + '" alt="Sin Firma" width="100" height="50"></td></tr>';
-                // }
-                // datos += "</table></div></div>";
-                // $("#datosClaustroHistorico").html(datos);
                 // para evitar problemas con id
                 $("#borrar").off("click");
-                // si hace click en borrar!
+
                 $("#borrar").click(function () {
-                    console.log("dentro de borrar, id:", respuesta[0].id);
-                    $.ajax({
-                        url: "./librerias/php/funciones.php",
-                        type: 'post',
-                        dataType: 'json',
-                        data: { borrar: respuesta[0].id },
-                        success: function (r) {
-                            if (r == "ok") { //respuesta[0].id
-                                $("#" + respuesta[0].id + " td").fadeOut(1000);
-                                $("#datosClaustroHistorico").html("");
-                                $("#editar").hide();
-                                $("#borrar").hide();
-                                $("#guardar").hide();
-                                $("#imprimir").hide();
-                                alert("borrado correctamente!");
-                            } else alert("Error al borrar un claustro! id: " + r);
-                        },
-                        error: function (xhr, status, error) {
-                            alert(xhr.responseText);
-                            console.log(xhr, status, error);
-                        }
-                    }).fail(function (error) {
-                        console.log(error);
-                    });
+                    debugger
+                    let idBorrar = meClick.parent()[0].id;
+                    console.log(meClick.parent()[0].id, "dentro de borrar, id:", idBorrar);
+                    let respuestaBorrar = peticionAjax({ url: "./librerias / php / funciones.php", tipo: "post", datos: { borrar: idBorrar } });
+                    if (respuestaBorrar === "ok") {
+                        $("#" + respuesta[0].id + " td").fadeOut(1000);
+                        toast({ msg: "Claustro borrado correctamente!", tipo: 'success' });
+                        $('.modal-overlayClautro').hide();
+                        $('.modalClautro').hide();
+                    } else
+                        toast({ msg: "Error al borrar un claustro! Error:" + respuestaBorrar.responseText, tipo: 'error' });
                 });
                 $("#editar").click(function () {
                     $("#guardar").show();
@@ -368,22 +326,15 @@ $(document).ready(function () {
                         "observacion": $("#obEdit").val(),
                     };
                     console.log(Gclaustro);
-                    // falta el selct con los profes
-                    $.ajax({
-                        url: "./librerias/php/funciones.php",
-                        type: 'post',
-                        dataType: 'json',
-                        data: { actualizarClaustro: Gclaustro },
-                        success: function (respuesta) {
-                            if (respuesta == "ok") {
-                                alert("Actualizado correctamente!");
-                            } else alert("Error al crear un claustro!");
-                        }
-                    });
+                    let respuestaGuardar = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { actualizarClaustro: Gclaustro } });
+                    if (respuestaGuardar === "ok")
+                        toast({ msg: "Claustro actualizado correctamente!", tipo: 'success' });
+                    else
+                        toast({ msg: "Error al actualizar un claustro! Error:" + respuestaGuardar.responseText, tipo: 'error' })
                 });
             } else {
-                debugger
-                console.log('Error', respuestaTabla);
+                toast({ msg: "Error inesperado. Error:" + respuestaTabla, tipo: 'error' })
+                console.log('Error inesperado', respuestaTabla);
             };// fin Botón Atualizar Profes;// fin peticion ajax click en tabla
         });
     });// fin historico

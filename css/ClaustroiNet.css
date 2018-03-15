@@ -33,7 +33,7 @@
 }
 
 .color {
-	background-color: red;
+	background-color: #0095ff;
 }
 
 table {
@@ -85,6 +85,21 @@ footer {
 .cabezaTabla, .cabezaTabla:hover {
 	background: darkgrey;
 	color: white;
+	border-radius: 5px;
+}
+
+.cabezaTabla th:first-child {
+	border-top-left-radius: 5px!important;
+	border-bottom-left-radius: 5px!important;
+}
+
+.cabezaTabla th:last-child {
+	border-top-right-radius: 5px!important;
+	border-bottom-right-radius: 5px!important;
+}
+
+th {
+	border-radius: 0!important;
 }
 
 tr:hover {
@@ -125,7 +140,7 @@ tr:hover {
 	background: #cecece;
 	font-size: 1.5em;
 	width: 100%;
-	z-index: 1;
+	z-index: 2;
 }
 
 .modal-content {
@@ -289,6 +304,22 @@ tr:hover {
 .cards-container .card {
 	display: inline-block;
 	overflow: visible;
+}
+
+.card.filaTablaFirma {
+	width: 300px;
+}
+
+.modalClautro .modal-title {
+	width: 90%;
+}
+
+.card-title {
+	font-size: 1.2em!important;
+}
+
+.datosHistoricoClaustro {
+	padding-top: 60px
 }
 
 /*https://codepen.io/mike-north/pen/MwVoYp?editors=1100*/

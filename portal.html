@@ -11,15 +11,9 @@
     <link rel="icon" href="../../favicon.ico">
     <link rel="stylesheet" type="text/css" href="/ProyectoDawClaustro/css/ClaustroiNet.css">
     <title>ClaustroiNet</title>
-    <!-- Latest compiled and minified CSS -->
-    <!--  <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap.css">-->
-    <!-- Optional theme -->
-    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-theme.min.css"> -->
     <!-- Normalize -->
     <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/normalize.css">
     <link rel="stylesheet" href="librerias/libsExternas/materialize/css/materialize.css">
-    <!-- Latest compiled and minified CSS -->
-    <!-- <link rel="stylesheet" href="/ProyectoDawClaustro/librerias/libsExternas/css/bootstrap-select.min.css"> -->
 </head>
 
 <body>
@@ -167,29 +161,11 @@
                     <label>Listado de Claustros:</label>
                     <div id="historicoClaustros"></div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-8" id="hdr">
-                    <label>Datos del Claustro:</label>
-                    <div class="jumbotron" id="datosClaustroHistorico"></div>
-                </div>
-                <div id="display_dialog"></div>
-                <div class="col-md-3 center-block">
-                    <button type="button" id="imprimir" class="btn btn-success center-block">Imprimir!</button>
-                </div>
-                <div class="col-md-3 center-block">
-                    <button type="button" id="editar" class="btn btn-primary center-block">Editar!</button>
-                </div>
-                <div class="col-md-3 center-block">
-                    <button type="button" id="borrar" class="btn btn-danger center-block">Borrar!</button>
-                </div>
-                <div class="col-md-3 center-block">
-                    <button type="button" id="guardar" class="btn btn-info center-block">Guardar!</button>
-                </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
     </div>
+    <div id="modalClautro" class="modalClautro"></div>
+    <div class="modal-overlayClautro"></div>
     <div id="toast"></div>
     <footer>
         <p>&copy; 2018. Jose Luis Rego Rodríguez.
@@ -200,10 +176,6 @@
 <!-- script  -->
 <!-- jQuery CDN versión 2.2.4 ya que bootstrap no sopeorta la 3 -->
 <script language="JavaScript" src="/ProyectoDawClaustro/librerias/libsExternas/jQuery/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap.min.js"></script> -->
-<!-- Latest compiled and minified JavaScript -->
-<!-- <script src="/ProyectoDawClaustro/librerias/libsExternas/js/bootstrap-select.min.js"></script> -->
 <!-- Libreria para imprimir -->
 <script src="librerias/js/jquery.PrintArea.js"></script>
 <script language="JavaScript" type="text/javascript" src="librerias/libsExternas/materialize/js/materialize.min.js"></script>

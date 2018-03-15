@@ -61,9 +61,51 @@ function cargarProfes() {
     });
 }
 
-function toast(msg) {
+function toast(toast) {
+    switch (toast.tipo) {
+        case 'success':
+            tipo = { i: 'check', color: '#28a745' }
+            break;
+        case 'error':
+            tipo = { i: 'close', color: 'red' }
+            break;
+        case 'warning':
+            tipo = { i: 'error_outline', color: '#ffc107' }
+            break;
+        case 'info':
+            tipo = { i: 'info_outline', color: '#17a2b8' }
+            break;
+        default:
+            tipo = { i: 'check', color: '#28a745' }
+            break;
+    }
     let x = document.getElementById("toast");
-    x.innerHTML = msg;
+    x.innerHTML = toast.msg;
     x.className = "show";
+    x.style.background = tipo.color;
+    $(x).prepend("<i class='material-icons'>" + tipo.i + "</i>");
     setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+}
+function seccionaHTML(data, param) {
+    return $("div." + param, data)[0] || '';
+}
+function obtenerHTML(url) {
+    let me = this,
+        direcc = url,
+        result = "";
+    $.ajax({
+        url: url,
+        method: 'GET',
+        async: false,
+        success: function (data, status) {
+            result = (!direcc.split('?')[1]) ? data : me.seccionaHTML(data, direcc.split('?')[1]);
+        }
+    });
+
+    return typeof result == 'string' ? result : result.outerHTML;
+}
+function reemplazaMostachos(obj) {
+    var cad = obj.html;
+    for (var chd in obj) cad = cad.replace(new RegExp('{{' + chd + '}}', 'g'), (obj[chd] || ''));
+    return cad;
 }

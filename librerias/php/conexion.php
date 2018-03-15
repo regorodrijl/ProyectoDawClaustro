@@ -1,6 +1,12 @@
 <?php
 # Conectamos a la base de datos
 #'regorodri.noip.me'
+
+// $host='localhost';
+// $dbname='claustro';
+// $user='regorodri';
+// $pass='Nahyr17.7';
+//LOCAL Xammp
 $host= 'localhost';
 $dbname='claustro';
 $user='root';

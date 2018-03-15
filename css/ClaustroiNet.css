@@ -33,7 +33,7 @@
 }
 
 .color {
-	background-color: red;
+	background-color: #0095ff;
 }
 
 table {
@@ -82,6 +82,31 @@ footer {
 	display: block!important;
 }
 
+.cabezaTabla, .cabezaTabla:hover {
+	background: darkgrey;
+	color: white;
+	border-radius: 5px;
+}
+
+.cabezaTabla th:first-child {
+	border-top-left-radius: 5px!important;
+	border-bottom-left-radius: 5px!important;
+}
+
+.cabezaTabla th:last-child {
+	border-top-right-radius: 5px!important;
+	border-bottom-right-radius: 5px!important;
+}
+
+th {
+	border-radius: 0!important;
+}
+
+tr:hover {
+	background: lightslategrey;
+	color: white;
+}
+
 /************************************************
 					Botones
 ************************************************/
@@ -115,7 +140,7 @@ footer {
 	background: #cecece;
 	font-size: 1.5em;
 	width: 100%;
-	z-index: 1;
+	z-index: 2;
 }
 
 .modal-content {
@@ -127,7 +152,7 @@ footer {
 	max-height: 80%!important;
 }
 
-.modal .discard {
+.modal .discard, .modalClautro .discard {
 	font-family: "Material Icons";
 	text-transform: lowercase;
 	position: absolute;
@@ -145,10 +170,50 @@ footer {
 	border-radius: 50%;
 }
 
-.modal .discard:hover {
+.modal .discard:hover, .modalClautro .discard:hover {
 	color: white;
 	background: red;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2)
+}
+
+.modalClautro {
+	top: 20px;
+	z-index: 1004;
+	display: none;
+	position: fixed;
+	left: 0;
+	right: 0;
+	background-color: #fafafa;
+	padding: 0;
+	max-height: 90%;
+	max-width: 90%;
+	margin: auto;
+	overflow-y: auto;
+	border-radius: 2px;
+	will-change: top, opacity;
+}
+
+.modal {
+	z-index: 1003!important;
+}
+
+.modal-overlay {
+	z-index: 1002!important;
+}
+
+.modal-overlayClautro {
+	z-index: 1003;
+	opacity: 0.5;
+	position: fixed;
+	top: -25%;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 125%;
+	width: 100%;
+	background: #000;
+	display: none;
+	will-change: opacity;
 }
 
 /************************************************
@@ -229,3 +294,32 @@ footer {
 /************************************************
 					FIN Toast
 ************************************************/
+
+.cards-container {
+	-webkit-column-count: 3;
+	-moz-column-count: 3;
+	column-count: 3;
+}
+
+.cards-container .card {
+	display: inline-block;
+	overflow: visible;
+}
+
+.card.filaTablaFirma {
+	width: 300px;
+}
+
+.modalClautro .modal-title {
+	width: 90%;
+}
+
+.card-title {
+	font-size: 1.2em!important;
+}
+
+.datosHistoricoClaustro {
+	padding-top: 60px
+}
+
+/*https://codepen.io/mike-north/pen/MwVoYp?editors=1100*/

@@ -102,7 +102,11 @@ th {
 	border-radius: 0!important;
 }
 
-tr:hover {
+td {
+	border-radius: 0!important;
+}
+
+.filaTabla:hover {
 	background: lightslategrey;
 	color: white;
 }

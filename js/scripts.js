@@ -238,7 +238,7 @@ $(document).ready(function () {
         //Procesamos datos
         let tabla = "<table id='tabla' border='1px'><tr class='cabezaTabla'><th>Título</th><th>Día</th><th>Cursos</th></tr>";
         for (let i in respuesta) {
-            tabla += "<tr id=" + respuesta[i].id + "><td>" + respuesta[i].titulo + "</td><td>" + respuesta[i].dia + "</td><td>" + respuesta[i].curso + "</td></tr>";
+            tabla += "<tr class='filaTabla' id=" + respuesta[i].id + "><td>" + respuesta[i].titulo + "</td><td>" + respuesta[i].dia + "</td><td>" + respuesta[i].curso + "</td></tr>";
         }
         tabla += "</table>";
         // imprimimos tabla

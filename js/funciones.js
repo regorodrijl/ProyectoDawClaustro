@@ -1,24 +1,45 @@
+var labelMonthNext = 'Mes siguiente';
+var labelMonthPrev = 'Mes anterior';
+var monthsFull = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+var monthsShort = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+var weekdaysFull = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+var weekdaysShort = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+var weekdaysLetter = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+
+
 /**Inicializador de fecha */
 $('.datepicker').pickadate({
     selectMonths: true,
     selectYears: 15,
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
+    labelMonthNext: labelMonthNext,
+    labelMonthPrev: labelMonthPrev,
+    monthsFull: monthsFull,
+    monthsShort: monthsShort,
+    weekdaysFull: weekdaysFull,
+    weekdaysShort: weekdaysShort,
+    weekdaysLetter: weekdaysLetter,
+    min: new Date(),
+    today: 'Hoy',
+    clear: 'Limpiar',
+    close: 'Aceptar',
     format: 'yyyy/mm/dd',
-    closeOnSelect: true
+    closeOnSelect: true,
+    onStart: function () {
+        var date = new Date()
+        this.set('select', [date.getFullYear(), date.getMonth(), date.getDate()]);
+    },
 });
 /**Inicializador de hora */
 $('.timepicker').pickatime({
     default: 'now',
     fromnow: 0,
     twelvehour: false,
-    donetext: 'OK',
-    cleartext: 'Clear',
-    canceltext: 'Cancel',
+    donetext: 'Aceptar',
+    cleartext: 'Limpiar',
+    canceltext: '',
     autoclose: false,
     ampmclickable: true,
-    aftershow: function () { } //Function for after opening timepicker
+    aftershow: function () { }
 });
 
 /** Petición Ajax **/

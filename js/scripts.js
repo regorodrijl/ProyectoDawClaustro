@@ -143,7 +143,7 @@ $(document).ready(function () {
         //comprobar si hay clautro activo para esa fecha.     
         console.log("cambio fecha " + $("#fecha").val());
         debugger
-        if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#horaInicio").val() == "" && $("#horaFin").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
+        if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#primeraConvocatoria").val() == "" && $("#segundaConvocatoria").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
             toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
         } else {
             if ($("#fecha").val() != undefined && $("#fecha").val() !== '') {
@@ -154,14 +154,14 @@ $(document).ready(function () {
                         profes.push(d.textContent);
                     });
                     console.log('cuantos profes: ' + profes.length);
-                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#horaInicio").val() == "" || $("#horaFin").val() == "" || $("#curso").val() == "" || $("#orden").val() == "" || profes.length <= 0) {
+                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#primeraConvocatoria").val() == "" || $("#segundaConvocatoria").val() == "" || $("#curso").val() == "" || $("#orden").val() == "" || profes.length <= 0) {
                         toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
                     } else {
                         let claustro = {
                             "titulo": $("#tituloClaustro").val(),
                             "dia": $("#fecha").val(),
-                            "horaInicio": $("#horaInicio").val(),
-                            "horaFin": $("#horaFin").val(),
+                            "primeraConvocatoria": $("#primeraConvocatoria").val(),
+                            "segundaConvocatoria": $("#segundaConvocatoria").val(),
                             "curso": $("#curso").val(),
                             "orden": $("#orden").val(),
                             "observacion": $("#observacion").val(),
@@ -177,8 +177,8 @@ $(document).ready(function () {
                             $("#orden").val('');
                             $("#observacion").val('');
                             $("#fecha").val('');
-                            $("#horaInicio").val('');
-                            $("#horaFin").val('');
+                            $("#primeraConvocatoria").val('');
+                            $("#segundaConvocatoria").val('');
                             toast({ msg: "Creado correctamente! RECUERDE! sólo estará activo el mismo día!" });
                             $('.modal').hide();
 
@@ -263,8 +263,8 @@ $(document).ready(function () {
                 objeto.titulo = respuestaTabla.result[0].titulo;
                 objeto.curso = respuestaTabla.result[0].curso;
                 objeto.dia = respuestaTabla.result[0].dia;
-                objeto.horaInicio = respuestaTabla.result[0].horaInicio;
-                objeto.horaFin = respuestaTabla.result[0].horaFin;
+                objeto.primeraConvocatoria = respuestaTabla.result[0].primeraConvocatoria;
+                objeto.segundaConvocatoria = respuestaTabla.result[0].segundaConvocatoria;
                 objeto.orden = respuestaTabla.result[0].orden;
                 objeto.observacion = respuestaTabla.result[0].observacion;
                 objeto.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?modalClaustro');
@@ -319,8 +319,8 @@ $(document).ready(function () {
                         "id": respuesta[0].id,
                         "titulo": $("#tituloEdit").val(),
                         "dia": $("#diaEdit").val(),
-                        "horaInicio": $("#hiEdit").val(),
-                        "horaFin": $("#hfEdit").val(),
+                        "primeraConvocatoria": $("#hiEdit").val(),
+                        "segundaConvocatoria": $("#hfEdit").val(),
                         "curso": $("#cursoEdit").val(),
                         "orden": $("#orEdit").val(),
                         "observacion": $("#obEdit").val(),

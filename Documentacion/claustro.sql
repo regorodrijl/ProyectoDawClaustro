@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `claustro` (
 `id` int(11) NOT NULL,
   `titulo` varchar(255) NOT NULL,
   `dia` date NOT NULL,
-  `horaInicio` time NOT NULL,
-  `horaFin` time NOT NULL,
+  `primeraConvocatoria` time NOT NULL,
+  `segundaConvocatoria` time NOT NULL,
   `curso` varchar(255) NOT NULL,
   `orden` varchar(255) NOT NULL,
   `observacion` varchar(255) NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `claustro` (
 -- Volcado de datos para la tabla `claustro`
 --
 
-INSERT INTO `claustro` (`id`, `titulo`, `dia`, `horaInicio`, `horaFin`, `curso`, `orden`, `observacion`, `activo`, `borrado`) VALUES
+INSERT INTO `claustro` (`id`, `titulo`, `dia`, `primeraConvocatoria`, `segundaConvocatoria`, `curso`, `orden`, `observacion`, `activo`, `borrado`) VALUES
 (1, 'Clasutro dia 31', '2016-08-31', '12:52:00', '12:52:00', '2016', 'dia', '', 0, 1),
 (2, 'Claustro septiembre1', '2016-09-01', '21:00:00', '21:00:00', '2016', 'Prueba dia 1', '', 0, 1),
 (3, 'Claustro septiembre1', '2016-09-01', '21:00:00', '21:00:00', '2016', 'Prueba dia 1', '', 0, 1),

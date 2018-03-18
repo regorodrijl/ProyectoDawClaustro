@@ -135,7 +135,7 @@ $(document).ready(function () {
                             $("#fecha").val('');
                             $("#primeraConvocatoria").val('');
                             $("#segundaConvocatoria").val('');
-                            toast({ msg: "Creado correctamente! RECUERDE! sólo estará activo el mismo día!" });
+                            toast({ msg: "Claustro creado correctamente! <br/> RECUERDE! sólo estará activo el mismo día!" });
                             $('.modal').hide();
                         }
                     }
@@ -143,7 +143,7 @@ $(document).ready(function () {
                     toast({ msg: "No se puede crear, revise el día" });
                     console.log("error-> " + respuesta);
                 }
-                $('#modalHistorico').modal();
+                $("#botonHistorico").trigger("click");
             } else {
                 toast({ msg: "Rellene el campo fecha" });
             }
@@ -219,7 +219,6 @@ $(document).ready(function () {
                 $("#borrar").off("click");
 
                 $("#borrar").click(function () {
-                    debugger
                     let idBorrar = meClick.parent()[0].id;
                     console.log(meClick.parent()[0].id, "dentro de borrar, id:", idBorrar);
                     let respuestaBorrar = peticionAjax({ url: "./librerias / php / funciones.php", tipo: "post", datos: { borrar: idBorrar } });

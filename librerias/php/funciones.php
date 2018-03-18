@@ -100,6 +100,23 @@ if(!empty($_POST['claustro'])){
 						array_push($arrayIdProfes,array("id"=>$filas['id']));	
 					}
 				}
+
+
+				$stmt = $pdo->prepare("SELECT * FROM profesor LIMIT 0, 50");
+				$stmt->execute();
+				$filas=$stmt->fetchAll(PDO::FETCH_ASSOC);
+				if($filas){
+					foreach ($filas as $fila ) {
+						array_push($arrayIdProfes,array("id"=>$fila['id']));	
+					}
+				}else{
+					$arry=$stmt->errorInfo();
+					$errorCode=$stmt->errorCode();
+					print_r("Error creando, al insertar profes---> ".$arry);
+					print_r($arry);
+					print_r($errorCode);
+				}
+
 				$insertado=false;
 				foreach ($arrayIdProfes as $key ) {
 					// insertamos en firma

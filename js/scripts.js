@@ -142,7 +142,6 @@ $(document).ready(function () {
     $("#crearClaustro").click(function () {
         //comprobar si hay clautro activo para esa fecha.     
         console.log("cambio fecha " + $("#fecha").val());
-        debugger
         if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#primeraConvocatoria").val() == "" && $("#segundaConvocatoria").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
             toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
         } else {
@@ -154,7 +153,7 @@ $(document).ready(function () {
                         profes.push(d.textContent);
                     });
                     console.log('cuantos profes: ' + profes.length);
-                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#primeraConvocatoria").val() == "" || $("#segundaConvocatoria").val() == "" || $("#curso").val() == "" || $("#orden").val() == "" || profes.length <= 0) {
+                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#primeraConvocatoria").val() == "" || $("#segundaConvocatoria").val() == "" || $("#curso").val() == "" || $("#orden").val() == "") {
                         toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
                     } else {
                         let claustro = {

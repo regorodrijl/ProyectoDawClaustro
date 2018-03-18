@@ -6,65 +6,71 @@
             </button>
         </div>
         <div class="row datosHistoricoClaustro">
-            <div class='col'>
-                <p>
-                    <label>
-                        <strong>Titulo:&nbsp; </strong>
-                    </label>
-                    <input id='tituloEdit' disabled value='{{titulo}}' />
-                </p>
+            <div class="row">
+                <div class='col s4'>
+                    <p>
+                        <label>
+                            <strong>Titulo:&nbsp; </strong>
+                        </label>
+                        <input id='tituloEdit' disabled value='{{titulo}}' />
+                    </p>
+                </div>
+                <div class="col s4">
+                    <p>
+                        <label>
+                            <strong>Curso:&nbsp; </strong>
+                        </label>
+                        <input id="cursoEdit" disabled value="{{curso}}" />
+                    </p>
+                </div>
+                <div class="col s4">
+                    <p>
+                        <label>
+                            <strong>Día:&nbsp; </strong>
+                        </label>
+                        <input id="diaEdit" disabled value="{{dia}}" />
+                    </p>
+                </div>
             </div>
-            <div class="col">
-                <p>
-                    <label>
-                        <strong>Curso:&nbsp; </strong>
-                    </label>
-                    <input id="cursoEdit" disabled value="{{curso}}" />
-                </p>
+            <div class="row">
+                <div class="col s6">
+                    <p>
+                        <label>
+                            <strong>Primera Convocatoria:&nbsp; </strong>
+                        </label>
+                        <input id="hiEdit" disabled value="{{primeraConvocatoria}}" />
+                    </p>
+                </div>
+                <div class="col s6">
+                    <p>
+                        <label>
+                            <strong>Segunda Convocatoria:&nbsp; </strong>
+                        </label>
+                        <input id="hfEdit" disabled value="{{segundaConvocatoria}}" />
+                    </p>
+                </div>
             </div>
-            <div class="col">
-                <p>
-                    <label>
-                        <strong>Día:&nbsp; </strong>
-                    </label>
-                    <input id="diaEdit" disabled value="{{dia}}" />
-                </p>
-            </div>
-            <div class="col">
-                <p>
-                    <label>
-                        <strong>Primera Convocatoria:&nbsp; </strong>
-                    </label>
-                    <input id="hiEdit" disabled value="{{primeraConvocatoria}}" />
-                </p>
-            </div>
-            <div class="col">
-                <p>
-                    <label>
-                        <strong>Segunda Convocatoria:&nbsp; </strong>
-                    </label>
-                    <input id="hfEdit" disabled value="{{segundaConvocatoria}}" />
-                </p>
-            </div>
-            <div class="col">
-                <p class="lead">
-                    <strong>Orden del día: </strong>
-                    <article>
-                        <textarea id="or" rows="4" cols="75" readonly>{{orden}}</textarea>
-                    </article>
-                </p>
-            </div>
-            <div class="col">
-                <p class="lead">
-                    <strong>Observaciones realizadas: </strong>
-                    <article>
-                        <textarea id="obEdit" rows="4" cols="75" readonly>{{observacion}}</textarea>
-                    </article>
-                </p>
+            <div class="row">
+                <div class="col s6">
+                    <p class="lead">
+                        <strong>Orden del día: </strong>
+                        <article>
+                            <textarea id="or" rows="4" cols="75" readonly>{{orden}}</textarea>
+                        </article>
+                    </p>
+                </div>
+                <div class="col s6">
+                    <p class="lead">
+                        <strong>Observaciones realizadas: </strong>
+                        <article>
+                            <textarea id="obEdit" rows="4" cols="75" readonly>{{observacion}}</textarea>
+                        </article>
+                    </p>
+                </div>
             </div>
 
             <div class='row'>
-                <div class='col'>
+                <div class='col s12'>
                     <strong>Número de Profesores asistentes: </strong>
                     <br>
                     <div class=" row">
@@ -72,20 +78,18 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div>
-                    <div class="col">
-                        <button type="button" id="imprimir" class="btn btn-success center-block">Imprimir!</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" id="editar" class="btn btn-primary center-block">Editar!</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" id="borrar" class="btn btn-danger center-block">Borrar!</button>
-                    </div>
-                    <div class="col">
-                        <button type="button" id="guardar" class="btn btn-info center-block">Guardar!</button>
-                    </div>
+            <div class="row" style="margin:0 200px">
+                <div class="col s3">
+                    <button type="button" id="imprimir" class="btn btn-success center-block">Imprimir!</button>
+                </div>
+                <div class="col s3">
+                    <button type="button" id="editar" class="btn btn-primary center-block">Editar!</button>
+                </div>
+                <div class="col s3">
+                    <button type="button" id="borrar" class="btn btn-danger center-block">Borrar!</button>
+                </div>
+                <div class="col s3">
+                    <button type="button" id="guardar" class="btn btn-info center-block">Guardar!</button>
                 </div>
             </div>
         </div>

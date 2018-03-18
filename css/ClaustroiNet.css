@@ -74,6 +74,10 @@ footer {
 	padding-right: 20px;
 }
 
+textarea {
+	height: 10rem!important;
+}
+
 .row {
 	margin-bottom: 5px!important;
 }

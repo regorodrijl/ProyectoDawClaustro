@@ -56,7 +56,7 @@ $(document).ready(function () {
                 a.href = pdf;
                 a.click();
 
-                //window.open(pdf, '_blank');
+                window.open(pdf, '_blank');
             }
         });
 

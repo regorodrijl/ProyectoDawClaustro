@@ -35,7 +35,7 @@
                         <div class="input-field col s12">
                             <i class="material-icons prefix">account_circle</i>
                             <label for="usuario">Usuario</label>
-                            <input type="text" class="validate" />
+                            <input type="text" class="validate" id="user"/>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">vpn_key</i>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="card-action right-align">
                     <input type="button" class="btn green waves-effect waves-light" id='loginRegistro' value="Registrate">
-                    <input type="submit" class="btn green waves-effect waves-light" value="Login">
+                    <input type="button" class="btn green waves-effect waves-light" id='login' value="Login">
                 </div>
             </form>
         </div>
@@ -77,10 +77,11 @@
                 <div class="card-action right-align">
                     <input type="button" class="btn red waves-effect waves-light" id="cancelarRegistro" value="Cancelar">
 
-                    <input type="submit" class="btn green waves-effect waves-light" value="Registrarse">
+                    <input type="button" class="btn green waves-effect waves-light" id="registrarse" value="Registrarse">
                 </div>
             </form>
         </div>
+        <div id="toast"></div>
     </div>
     <footer>
         <p>&copy; 2018. Jose Luis Rego Rodríguez.

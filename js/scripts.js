@@ -74,6 +74,36 @@ $(document).ready(function () {
         $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
         $('.registro').css('display') == 'none' ? $('.registro').fadeIn() : $('.registro').fadeOut();
         $('.registro').css('display') == 'block' ? $('.registro').css('display', 'flex') : $('.registro').css('display', 'none');
+
+    });
+    $('#login').click(function () {
+        let registro = {
+            "usuario": $("#user").val(),
+            "password": $("#password").val()
+        };
+        debugger
+        let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { login: registro } });
+        if (respuesta.status === 'ok') {
+            debugger
+            toast({ msg: "Usuario registrado Correctamente!" });
+        }else{
+            debugger
+        }
+    });
+    $('#registrarse').click(function () {
+        // if () {
+        //peticion
+        let registro = {
+            "usuario": $("#usuarioRegistro").val(),
+            "email": $("#emailRegistro").val(),
+            "password": $("#passwordRegistro").val()
+        };
+        let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { registrarse: registro } });
+        if (respuesta.status === 'ok') {
+            toast({ msg: "Usuario registrado Correctamente!" });
+        }
+        $('#cancelarRegistro').trigger("click");
+        //}
     });
     $('#cancelarRegistro').click(function () {
         $('.registro').css('display') == 'none' ? $('.registro').css('display', 'block') : $('.registro').css('display', 'none');
@@ -145,7 +175,7 @@ $(document).ready(function () {
                 }
                 $("#botonHistorico").trigger("click");
             } else {
-                toast({ msg: "Rellene el campo fecha" });
+                toast({ msg: "Rellene el campo fecha", tipo: 'warning' });
             }
         }
     });//fin botón CrearClaustro

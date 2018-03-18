@@ -90,16 +90,16 @@ if(!empty($_POST['claustro'])){
 				$profesores = array_map('trim', $profesores);
 
 				$arrayIdProfes=[];
-				foreach ($profesores as $key ) {
-				//buscamos id profes.
-					$stmt = $pdo->prepare("select * from profesor where nombre=?");
-					$stmt->bindParam(1, $key,PDO::PARAM_STR);
-					$stmt->execute();
-					$filas=$stmt->fetch(PDO::FETCH_ASSOC);
-					if($filas){
-						array_push($arrayIdProfes,array("id"=>$filas['id']));	
-					}
-				}
+				// foreach ($profesores as $key ) {
+				// //buscamos id profes.
+				// 	$stmt = $pdo->prepare("select * from profesor where nombre=?");
+				// 	$stmt->bindParam(1, $key,PDO::PARAM_STR);
+				// 	$stmt->execute();
+				// 	$filas=$stmt->fetch(PDO::FETCH_ASSOC);
+				// 	if($filas){
+				// 		array_push($arrayIdProfes,array("id"=>$filas['id']));	
+				// 	}
+				// }
 
 
 				$stmt = $pdo->prepare("SELECT * FROM profesor LIMIT 0, 50");

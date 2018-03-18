@@ -1,20 +1,7 @@
 $(document).ready(function () {
-    var profesPDF = [];
-    //var $contenidoAjax = $('div#contenidoAjax').html('<p><img src="./src/loader.gif" /></p>');
-    //al entrar en la web, actualizar profesor y desactivar los claustros activos.
-    // $("#historico").hide();
-    // $("#nuevo").hide();
-    // $("#imprimir").hide();
-    // $("#editar").hide();
-    // $("#borrar").hide();
-    // $("#guardar").hide();
-    //$('div#contenidoAjax').hide();
-    var crear = false;
-    var claustroActivo = false;
-
     // Actualizar profes.
     //var datosProfesActualizar =  '< php echo json_encode($result); ?>';
-    datosProfesActualizar = "datos";//JSON.parse(datosProfesActualizar);
+    //datosProfesActualizar = "datos";//JSON.parse(datosProfesActualizar);
     // poner: cargando...
     //antes del parche
     /*   $.ajax({
@@ -46,41 +33,6 @@ $(document).ready(function () {
          console.log(error); 
        });// fin Botón Atualizar Profes
    */
-    //Fin antes parche
-    // NUEVO
-    $("#btnNuevo").click(function () {
-        $("#titulo").hide();
-        $("#nuevo").show();
-        $("#historico").hide();
-        $("#selecProfe").change(function () {
-            var str = "PROFESORES SELECCIONADOS:<br>";
-            $("select option:selected").each(function () {
-                str += $(this).text() + "<br>";
-            });
-            $("#seleccion").html("<div>" + str + "</div>");
-        }).change();
-        //comprobar si hay clautro activo para esa fecha.
-        $("#fecha").focusout(function () {
-            console.log("cambio fecha" + $("#fecha").val());
-            $.ajax({
-                url: "./librerias/php/funciones.php",
-                type: 'post',
-                dataType: 'json',
-                data: { fecha: $("#fecha").val() },
-                success: function (fecha) {
-                    if (fecha == "ok") {
-                        console.log("se puede crear!");
-                    } else {
-                        alert(fecha);
-                        console.log("respuesta fecha " + fecha);
-                    }
-                }
-            }).fail(function (error) {
-                console.log(error);
-            });
-        });
-    });// fin nuevo 
-
     //IMPRIMIR
     $("#imprimir").click(function () {
         debugger
@@ -117,6 +69,7 @@ $(document).ready(function () {
  */
 //Nueva parte  por revisar parte anterior 2018
 $(document).ready(function () {
+    var profesPDF = [];
     $('#loginRegistro').click(function () {
         $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
         $('.registro').css('display') == 'none' ? $('.registro').fadeIn() : $('.registro').fadeOut();
@@ -138,6 +91,11 @@ $(document).ready(function () {
         $('.modal-overlayClautro').hide();
         $('.modalClautro').hide();
     });
+    $("#reset").click(function () {
+        location.reload();
+    });
+
+    comprobarClaustrosYCambioEstado();
     // CREAR NUEVO CLAUSTRO
     $("#crearClaustro").click(function () {
         //comprobar si hay clautro activo para esa fecha.     
@@ -170,7 +128,6 @@ $(document).ready(function () {
                         if (creacionClaustro == "ko") {
                             toast({ msg: "Ha habido algún error!" });
                         } else {
-                            debugger
                             $("#tituloClaustro").val('');
                             $("#curso").val('');
                             $("#orden").val('');
@@ -180,7 +137,6 @@ $(document).ready(function () {
                             $("#segundaConvocatoria").val('');
                             toast({ msg: "Creado correctamente! RECUERDE! sólo estará activo el mismo día!" });
                             $('.modal').hide();
-
                         }
                     }
                 } else {
@@ -193,39 +149,6 @@ $(document).ready(function () {
             }
         }
     });//fin botón CrearClaustro
-
-
-
-
-
-
-
-
-
-
-    /**Comproar si hay claustro activo y cambiarlos de esteado  */
-    // desactivar claustro activos.
-    // $.ajax({
-    //     url: "./librerias/php/funciones.php",
-    //     type: 'post',
-    //     dataType: 'json',
-    //     data: { desactivar: "desactivar" },
-    //     success: function (desactivar) {
-    //         //alert(desactivar);
-    //         if (desactivar == "ok") {
-    //             claustroActivo = false;
-    //             console.log("No hay claustro activo");
-    //         } else {
-    //             claustroActivo = true;
-    //             console.log("Hay clautro activos " + desactivar);
-    //         }
-    //     }
-    // }).fail(function (error) {
-    //     console.log(error);
-    // });
-    // $("#reset").click(function () {
-    //     location.reload();
-    // });// fin desactivar Claustro activo
 
     //HISTORICO
     var datos;
@@ -309,7 +232,6 @@ $(document).ready(function () {
                         toast({ msg: "Error al borrar un claustro! Error:" + respuestaBorrar.responseText, tipo: 'error' });
                 });
                 $("#editar").click(function () {
-                    $("#guardar").show();
                     $("textarea").attr("readonly", false);
                     $("input").prop('disabled', false);
                 });

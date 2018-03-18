@@ -249,6 +249,12 @@ td {
 	animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
+#toast i {
+	position: relative;
+	top: 5px;
+	margin-right: 20px;
+}
+
 /* Animaciones para poner/quitar toast */
 
 @-webkit-keyframes fadein {

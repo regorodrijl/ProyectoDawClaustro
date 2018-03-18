@@ -104,6 +104,7 @@ function toast(toast) {
     x.innerHTML = toast.msg;
     x.className = "show";
     x.style.background = tipo.color;
+    $('#toast').css('left', "calc(50% -  " + $('#toast').outerWidth() / 2 + "px)");
     $(x).prepend("<i class='material-icons'>" + tipo.i + "</i>");
     setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
 }
@@ -129,4 +130,17 @@ function reemplazaMostachos(obj) {
     var cad = obj.html;
     for (var chd in obj) cad = cad.replace(new RegExp('{{' + chd + '}}', 'g'), (obj[chd] || ''));
     return cad;
+}
+
+function comprobarClaustrosYCambioEstado() {
+    /**
+     * Comproar si hay claustro activo y cambiarlos de esteado  
+     * desactivar claustro activos.
+    */
+    let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { desactivar: "desactivar" } });
+    if (respuesta == "ok") {
+        toast({ msg: "No hay claustro activo para el día de hoy" });
+    } else {
+        toast({ msg: "Hay claustro activo para el día de hoy." });
+    }
 }

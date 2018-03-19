@@ -71,7 +71,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     comprobarToken();
-    
+
     var profesPDF = [];
     $('#loginRegistro').click(function () {
         $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
@@ -88,6 +88,8 @@ $(document).ready(function () {
         console.log('resp->', respuesta);
         if (respuesta.status === 200 || respuesta.status === 'ok') {
             tokenUsuario = respuesta.result;
+            debugger
+            window.location.href = "/ProyectoDawClaustro/portal.html";
             toast({ msg: "Usuario registrado Correctamente!" });
         } else {
             debugger

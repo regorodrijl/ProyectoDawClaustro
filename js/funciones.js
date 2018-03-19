@@ -149,16 +149,18 @@ function comprobarClaustrosYCambioEstado() {
  */
 var tokenUsuario;
 function comprobarToken() {
-    console.log('tks',tokenUsuario);
-    if (tokenUsuario !== "" || tokenUsuario !== undefined) {
-        //si no tiene token
+    console.log('tks', tokenUsuario);
+    if (tokenUsuario !== undefined) {
+        //si tiene token
         let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { token: tokenUsuario } });
         if (respuesta == "ok") {
             return respuesta;
         } else {
             return respuesta;
         }
-    }else{
-        //tient token
+    } else {
+        debugger
+       // window.location.href = "/ProyectoDawClaustro/login.html";
+        //No tient token
     }
 }

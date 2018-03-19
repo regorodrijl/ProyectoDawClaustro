@@ -68,7 +68,10 @@ $(document).ready(function () {
  * ****************************************
  */
 //Nueva parte  por revisar parte anterior 2018
+
 $(document).ready(function () {
+    comprobarToken();
+    
     var profesPDF = [];
     $('#loginRegistro').click(function () {
         $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
@@ -81,13 +84,14 @@ $(document).ready(function () {
             "usuario": $("#user").val(),
             "password": $("#password").val()
         };
-        debugger
         let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { login: registro } });
-        if (respuesta.status === 'ok') {
-            debugger
+        console.log('resp->', respuesta);
+        if (respuesta.status === 200 || respuesta.status === 'ok') {
+            tokenUsuario = respuesta.result;
             toast({ msg: "Usuario registrado Correctamente!" });
         } else {
             debugger
+            toast({ msg: respuesta.result, tipo: 'error' });
         }
     });
     $('#registrarse').click(function () {

@@ -144,3 +144,21 @@ function comprobarClaustrosYCambioEstado() {
         toast({ msg: "Hay claustro activo para el día de hoy." });
     }
 }
+/**
+ * Comprobar token
+ */
+var tokenUsuario;
+function comprobarToken() {
+    console.log('tks',tokenUsuario);
+    if (tokenUsuario !== "" || tokenUsuario !== undefined) {
+        //si no tiene token
+        let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { token: tokenUsuario } });
+        if (respuesta == "ok") {
+            return respuesta;
+        } else {
+            return respuesta;
+        }
+    }else{
+        //tient token
+    }
+}

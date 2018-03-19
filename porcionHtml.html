@@ -111,4 +111,58 @@
             <p>Here is some more information about this product that is only revealed once clicked on.</p>
         </div>
     </div>
-</div>
+    <div class="valign-wrapper row login-box login">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <form>
+                <div class="card-content">
+                    <span class="card-title">Acceso a ClaustroiNet</span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="validate" id="user" required/>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <label for="password">Contraseña: </label>
+                            <input type="password" class="validate" name="password" id="password" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <input type="button" class="btn green waves-effect waves-light" id='loginRegistro' value="Registrate">
+                    <input type="button" class="btn green waves-effect waves-light" id='login' value="Login">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="valign-wrapper row login-box registro">
+        <div class="col card hoverable s10 pull-s1 m6 pull-m3 l4 pull-l4">
+            <form>
+                <div class="card-content">
+                    <span class="card-title">Registro a ClaustroiNet</span>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <label for="usuario">Usuario</label>
+                            <input type="text" class="validate" id="usuarioRegistro" required />
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">vpn_key</i>
+                            <label for="password">Contraseña: </label>
+                            <input type="password" class="validate" name="password" id="passwordRegistro" required />
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <label for="email">Email: </label>
+                            <input type="email" class="validate" name="email" id="emailRegistro" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="card-action right-align">
+                    <input type="button" class="btn red waves-effect waves-light" id="cancelarRegistro" value="Cancelar">
+                    <input type="button" class="btn green waves-effect waves-light" id="registrarse" value="Registrarse">
+                </div>
+            </form>
+        </div>
+    </div>

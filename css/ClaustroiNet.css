@@ -74,6 +74,10 @@ footer {
 	padding-right: 20px;
 }
 
+textarea {
+	height: 10rem!important;
+}
+
 .row {
 	margin-bottom: 5px!important;
 }
@@ -102,7 +106,11 @@ th {
 	border-radius: 0!important;
 }
 
-tr:hover {
+td {
+	border-radius: 0!important;
+}
+
+.filaTabla:hover {
 	background: lightslategrey;
 	color: white;
 }
@@ -241,8 +249,14 @@ tr:hover {
 
 #toast.show {
 	visibility: visible;
-	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-	animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	-webkit-animation: fadein 1s, fadeout 1s 2.5s;
+	animation: fadein 1s, fadeout 1s 2.5s;
+}
+
+#toast i {
+	position: relative;
+	top: 5px;
+	margin-right: 20px;
 }
 
 /* Animaciones para poner/quitar toast */

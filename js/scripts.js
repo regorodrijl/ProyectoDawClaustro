@@ -1,20 +1,7 @@
 $(document).ready(function () {
-    var profesPDF = [];
-    //var $contenidoAjax = $('div#contenidoAjax').html('<p><img src="./src/loader.gif" /></p>');
-    //al entrar en la web, actualizar profesor y desactivar los claustros activos.
-    // $("#historico").hide();
-    // $("#nuevo").hide();
-    // $("#imprimir").hide();
-    // $("#editar").hide();
-    // $("#borrar").hide();
-    // $("#guardar").hide();
-    //$('div#contenidoAjax').hide();
-    var crear = false;
-    var claustroActivo = false;
-
     // Actualizar profes.
     //var datosProfesActualizar =  '< php echo json_encode($result); ?>';
-    datosProfesActualizar = "datos";//JSON.parse(datosProfesActualizar);
+    //datosProfesActualizar = "datos";//JSON.parse(datosProfesActualizar);
     // poner: cargando...
     //antes del parche
     /*   $.ajax({
@@ -46,41 +33,6 @@ $(document).ready(function () {
          console.log(error); 
        });// fin Botón Atualizar Profes
    */
-    //Fin antes parche
-    // NUEVO
-    $("#btnNuevo").click(function () {
-        $("#titulo").hide();
-        $("#nuevo").show();
-        $("#historico").hide();
-        $("#selecProfe").change(function () {
-            var str = "PROFESORES SELECCIONADOS:<br>";
-            $("select option:selected").each(function () {
-                str += $(this).text() + "<br>";
-            });
-            $("#seleccion").html("<div>" + str + "</div>");
-        }).change();
-        //comprobar si hay clautro activo para esa fecha.
-        $("#fecha").focusout(function () {
-            console.log("cambio fecha" + $("#fecha").val());
-            $.ajax({
-                url: "./librerias/php/funciones.php",
-                type: 'post',
-                dataType: 'json',
-                data: { fecha: $("#fecha").val() },
-                success: function (fecha) {
-                    if (fecha == "ok") {
-                        console.log("se puede crear!");
-                    } else {
-                        alert(fecha);
-                        console.log("respuesta fecha " + fecha);
-                    }
-                }
-            }).fail(function (error) {
-                console.log(error);
-            });
-        });
-    });// fin nuevo 
-
     //IMPRIMIR
     $("#imprimir").click(function () {
         debugger
@@ -104,7 +56,7 @@ $(document).ready(function () {
                 a.href = pdf;
                 a.click();
 
-                //window.open(pdf, '_blank');
+                window.open(pdf, '_blank');
             }
         });
 
@@ -116,11 +68,48 @@ $(document).ready(function () {
  * ****************************************
  */
 //Nueva parte  por revisar parte anterior 2018
+
 $(document).ready(function () {
+    //  comprobarToken();
+
+    var profesPDF = [];
     $('#loginRegistro').click(function () {
         $('.login').css('display') == 'none' ? $('.login').css('display', 'block') : $('.login').css('display', 'none');
         $('.registro').css('display') == 'none' ? $('.registro').fadeIn() : $('.registro').fadeOut();
         $('.registro').css('display') == 'block' ? $('.registro').css('display', 'flex') : $('.registro').css('display', 'none');
+
+    });
+    $('#login').click(function () {
+        let registro = {
+            "usuario": $("#user").val(),
+            "password": $("#password").val()
+        };
+        let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { login: registro } });
+        console.log('resp->', respuesta);
+        if (respuesta.status === 200 || respuesta.status === 'ok') {
+            tokenUsuario = respuesta.result;
+            debugger
+            window.location.href = "/ProyectoDawClaustro/portal.html";
+            toast({ msg: "Usuario registrado Correctamente!" });
+        } else {
+            debugger
+            toast({ msg: respuesta.result, tipo: 'error' });
+        }
+    });
+    $('#registrarse').click(function () {
+        if ($("#usuarioRegistro").val() !== undefined && $("#emailRegistro").val() !== undefined && $("#passwordRegistro").val() !== undefined) {
+            //peticion
+            let registro = {
+                "usuario": $("#usuarioRegistro").val(),
+                "email": $("#emailRegistro").val(),
+                "password": $("#passwordRegistro").val()
+            };
+            let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { registrarse: registro } });
+            if (respuesta.status === 'ok') {
+                toast({ msg: "Usuario registrado Correctamente!" });
+            }
+            $('#cancelarRegistro').trigger("click");
+        }
     });
     $('#cancelarRegistro').click(function () {
         $('.registro').css('display') == 'none' ? $('.registro').css('display', 'block') : $('.registro').css('display', 'none');
@@ -138,108 +127,74 @@ $(document).ready(function () {
         $('.modal-overlayClautro').hide();
         $('.modalClautro').hide();
     });
+    $("#reset").click(function () {
+        location.reload();
+    });
+
+    comprobarClaustrosYCambioEstado();
     // CREAR NUEVO CLAUSTRO
     $("#crearClaustro").click(function () {
+        debugger
         //comprobar si hay clautro activo para esa fecha.     
         console.log("cambio fecha " + $("#fecha").val());
-        debugger
-        if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#horaInicio").val() == "" && $("#horaFin").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
-            toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
+        if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#primeraConvocatoria").val() == "" && $("#segundaConvocatoria").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
+            toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso y Orden del Día.", tipo: 'warning' })
         } else {
             if ($("#fecha").val() != undefined && $("#fecha").val() !== '') {
-                let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { fecha: $("#fecha").val() } });
-                if (respuesta == "ok") {
-                    let profes = [];
-                    $("#seleccion").children().each(function (i, d) {
-                        profes.push(d.textContent);
-                    });
-                    console.log('cuantos profes: ' + profes.length);
-                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#horaInicio").val() == "" || $("#horaFin").val() == "" || $("#curso").val() == "" || $("#orden").val() == "" || profes.length <= 0) {
-                        toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
-                    } else {
-                        let claustro = {
-                            "titulo": $("#tituloClaustro").val(),
-                            "dia": $("#fecha").val(),
-                            "horaInicio": $("#horaInicio").val(),
-                            "horaFin": $("#horaFin").val(),
-                            "curso": $("#curso").val(),
-                            "orden": $("#orden").val(),
-                            "observacion": $("#observacion").val(),
-                            "profesores": profes
-                        };
-                        let creacionClaustro = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { claustro: claustro } });
-                        if (creacionClaustro == "ko") {
-                            toast({ msg: "Ha habido algún error!" });
-                        } else {
-                            debugger
-                            $("#tituloClaustro").val('');
-                            $("#curso").val('');
-                            $("#orden").val('');
-                            $("#observacion").val('');
-                            $("#fecha").val('');
-                            $("#horaInicio").val('');
-                            $("#horaFin").val('');
-                            toast({ msg: "Creado correctamente! RECUERDE! sólo estará activo el mismo día!" });
-                            $('.modal').hide();
-
-                        }
-                    }
+                //let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { fecha: $("#fecha").val() } });
+                // if (respuesta == "ok") {
+                if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#primeraConvocatoria").val() == "" || $("#segundaConvocatoria").val() == "" || $("#curso").val() == "" || $("#orden").val() == "") {
+                    toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso y Orden del Día.", tipo: 'warning' })
                 } else {
-                    toast({ msg: "No se puede crear, revise el día" });
-                    console.log("error-> " + respuesta);
+                    let claustro = {
+                        "titulo": $("#tituloClaustro").val(),
+                        "dia": $("#fecha").val(),
+                        "primeraConvocatoria": $("#primeraConvocatoria").val(),
+                        "segundaConvocatoria": $("#segundaConvocatoria").val(),
+                        "curso": $("#curso").val(),
+                        "orden": $("#orden").val(),
+                        "observacion": $("#observacion").val(),
+                    };
+                    let creacionClaustro = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { claustro: claustro } });
+                    debugger
+                    if (creacionClaustro == "ko") {
+                        toast({ msg: "Ha habido algún error!" });
+                    } else {
+                        $("#tituloClaustro").val('');
+                        $("#curso").val('');
+                        $("#orden").val('');
+                        $("#observacion").val('');
+                        $("#fecha").val('');
+                        $("#primeraConvocatoria").val('');
+                        $("#segundaConvocatoria").val('');
+                        toast({ msg: "Claustro creado correctamente! <br/> RECUERDE! sólo estará activo el mismo día!" });
+                        $('.modal').hide();
+                    }
                 }
-                $('#modalHistorico').modal();
+                // } else {
+                //     toast({ msg: "No se puede crear, revise el día" });
+                //     console.log("error-> " + respuesta);
+                // }
+                $("#botonHistorico").trigger("click");
             } else {
-                toast({ msg: "Rellene el campo fecha" });
+                toast({ msg: "Rellene el campo fecha", tipo: 'warning' });
             }
         }
     });//fin botón CrearClaustro
-
-
-
-
-
-
-
-
-
-
-    /**Comproar si hay claustro activo y cambiarlos de esteado  */
-    // desactivar claustro activos.
-    // $.ajax({
-    //     url: "./librerias/php/funciones.php",
-    //     type: 'post',
-    //     dataType: 'json',
-    //     data: { desactivar: "desactivar" },
-    //     success: function (desactivar) {
-    //         //alert(desactivar);
-    //         if (desactivar == "ok") {
-    //             claustroActivo = false;
-    //             console.log("No hay claustro activo");
-    //         } else {
-    //             claustroActivo = true;
-    //             console.log("Hay clautro activos " + desactivar);
-    //         }
-    //     }
-    // }).fail(function (error) {
-    //     console.log(error);
-    // });
-    // $("#reset").click(function () {
-    //     location.reload();
-    // });// fin desactivar Claustro activo
 
     //HISTORICO
     var datos;
     $("#botonHistorico").click(function () {
         //abrimos la modal
         $('#modalHistorico').modal();
+        debugger
         //Vamos hace peticion ajax;
         let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historicos: "Claustro historico" } });
         console.log("respuesta ajax", respuesta);
         //Procesamos datos
         let tabla = "<table id='tabla' border='1px'><tr class='cabezaTabla'><th>Título</th><th>Día</th><th>Cursos</th></tr>";
         for (let i in respuesta) {
-            tabla += "<tr id=" + respuesta[i].id + "><td>" + respuesta[i].titulo + "</td><td>" + respuesta[i].dia + "</td><td>" + respuesta[i].curso + "</td></tr>";
+            tabla += "<tr class='filaTabla' id=" + respuesta[i].id + "><td>" + respuesta[i].titulo + "</td><td>" + respuesta[i].dia + "</td><td>" + respuesta[i].curso + "</td></tr>";
         }
         tabla += "</table>";
         // imprimimos tabla
@@ -263,8 +218,8 @@ $(document).ready(function () {
                 objeto.titulo = respuestaTabla.result[0].titulo;
                 objeto.curso = respuestaTabla.result[0].curso;
                 objeto.dia = respuestaTabla.result[0].dia;
-                objeto.horaInicio = respuestaTabla.result[0].horaInicio;
-                objeto.horaFin = respuestaTabla.result[0].horaFin;
+                objeto.primeraConvocatoria = respuestaTabla.result[0].primeraConvocatoria;
+                objeto.segundaConvocatoria = respuestaTabla.result[0].segundaConvocatoria;
                 objeto.orden = respuestaTabla.result[0].orden;
                 objeto.observacion = respuestaTabla.result[0].observacion;
                 objeto.html = obtenerHTML('/ProyectoDawClaustro/porcionHtml.html?modalClaustro');
@@ -300,7 +255,7 @@ $(document).ready(function () {
                     debugger
                     let idBorrar = meClick.parent()[0].id;
                     console.log(meClick.parent()[0].id, "dentro de borrar, id:", idBorrar);
-                    let respuestaBorrar = peticionAjax({ url: "./librerias / php / funciones.php", tipo: "post", datos: { borrar: idBorrar } });
+                    let respuestaBorrar = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { borrar: idBorrar } });
                     if (respuestaBorrar === "ok") {
                         $("#" + respuesta[0].id + " td").fadeOut(1000);
                         toast({ msg: "Claustro borrado correctamente!", tipo: 'success' });
@@ -310,7 +265,6 @@ $(document).ready(function () {
                         toast({ msg: "Error al borrar un claustro! Error:" + respuestaBorrar.responseText, tipo: 'error' });
                 });
                 $("#editar").click(function () {
-                    $("#guardar").show();
                     $("textarea").attr("readonly", false);
                     $("input").prop('disabled', false);
                 });
@@ -319,8 +273,8 @@ $(document).ready(function () {
                         "id": respuesta[0].id,
                         "titulo": $("#tituloEdit").val(),
                         "dia": $("#diaEdit").val(),
-                        "horaInicio": $("#hiEdit").val(),
-                        "horaFin": $("#hfEdit").val(),
+                        "primeraConvocatoria": $("#hiEdit").val(),
+                        "segundaConvocatoria": $("#hfEdit").val(),
                         "curso": $("#cursoEdit").val(),
                         "orden": $("#orEdit").val(),
                         "observacion": $("#obEdit").val(),

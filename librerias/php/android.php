@@ -70,7 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 				$fecha_entrada = strtotime($diaClaustro);
 				if($fecha_actual === $fecha_entrada){
 					$control=true;
-					array_push($arrayDatos,array('id'=>$fila['id'],'titulo'=>$fila['titulo'],'dia'=>$fila['dia'],'horaInicio'=>$fila['horaInicio'],'horaFin'=>$fila['horaFin'],'curso'=>$fila['curso'],'orden'=>$fila['orden'],'observacion'=>$fila['observacion']));
+					array_push($arrayDatos,array('id'=>$fila['id'],'titulo'=>$fila['titulo'],'dia'=>$fila['dia'],'primeraConvocatoria'=>$fila['primeraConvocatoria'],'segundaConvocatoria'=>$fila['segundaConvocatoria'],'curso'=>$fila['curso'],'orden'=>$fila['orden'],'observacion'=>$fila['observacion']));
 				}else{
 					$control=false;
 				//array_push($noHay,array('id'=>0,'nombre'=>'Aun falta algun tiempo'));

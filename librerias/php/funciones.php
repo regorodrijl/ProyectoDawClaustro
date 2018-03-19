@@ -66,13 +66,13 @@ if (!empty($_POST['datos'])){
 if(!empty($_POST['claustro'])){
 	try{	
 		$res = $_POST['claustro'];
-		if(!empty($res['titulo'])&& !empty($res['dia'])&& !empty($res['horaInicio'])&& !empty($res['horaFin'])&& !empty($res['curso'])&& !empty($res['orden'])){
+		if(!empty($res['titulo'])&& !empty($res['dia'])&& !empty($res['primeraConvocatoria'])&& !empty($res['segundaConvocatoria'])&& !empty($res['curso'])&& !empty($res['orden'])){
 			//creamos el claustro
-			$stmt = $pdo->prepare("insert into claustro(titulo,dia,horaInicio,horaFin,curso,orden,observacion,activo,borrado) values(:titulo,:dia,:horaInicio,:horaFin,:curso,:orden,:observacion,true,false)");
+			$stmt = $pdo->prepare("insert into claustro(titulo,dia,primeraConvocatoria,segundaConvocatoria,curso,orden,observacion,activo,borrado) values(:titulo,:dia,:primeraConvocatoria,:segundaConvocatoria,:curso,:orden,:observacion,true,false)");
 			$stmt->bindParam(':titulo', $res['titulo']);
 			$stmt->bindParam(':dia', $res['dia']);
-			$stmt->bindParam(':horaInicio', $res['horaInicio']);
-			$stmt->bindParam(':horaFin', $res['horaFin']);
+			$stmt->bindParam(':primeraConvocatoria', $res['primeraConvocatoria']);
+			$stmt->bindParam(':segundaConvocatoria', $res['segundaConvocatoria']);
 			$stmt->bindParam(':curso', $res['curso']);
 			$stmt->bindParam(':orden', $res['orden']);
 			$stmt->bindParam(':observacion', $res['observacion']);
@@ -85,21 +85,38 @@ if(!empty($_POST['claustro'])){
 				// ultimo id insertado en claustro.
 				$lastId = $pdo->lastInsertId(); 
 
-				$profesores = $res["profesores"];
-				// Para quitar espacios antes y despues de string
-				$profesores = array_map('trim', $profesores);
+				// $profesores = $res["profesores"];
+				// // Para quitar espacios antes y despues de string
+				// $profesores = array_map('trim', $profesores);
 
 				$arrayIdProfes=[];
-				foreach ($profesores as $key ) {
-				//buscamos id profes.
-					$stmt = $pdo->prepare("select * from profesor where nombre=?");
-					$stmt->bindParam(1, $key,PDO::PARAM_STR);
-					$stmt->execute();
-					$filas=$stmt->fetch(PDO::FETCH_ASSOC);
-					if($filas){
-						array_push($arrayIdProfes,array("id"=>$filas['id']));	
+				// foreach ($profesores as $key ) {
+				// //buscamos id profes.
+				// 	$stmt = $pdo->prepare("select * from profesor where nombre=?");
+				// 	$stmt->bindParam(1, $key,PDO::PARAM_STR);
+				// 	$stmt->execute();
+				// 	$filas=$stmt->fetch(PDO::FETCH_ASSOC);
+				// 	if($filas){
+				// 		array_push($arrayIdProfes,array("id"=>$filas['id']));	
+				// 	}
+				// }
+
+
+				$stmt = $pdo->prepare("SELECT * FROM profesor LIMIT 10, 20");
+				$stmt->execute();
+				$filas=$stmt->fetchAll(PDO::FETCH_ASSOC);
+				if($filas){
+					foreach ($filas as $fila ) {
+						array_push($arrayIdProfes,array("id"=>$fila['id']));	
 					}
+				}else{
+					$arry=$stmt->errorInfo();
+					$errorCode=$stmt->errorCode();
+					print_r("Error creando, al insertar profes---> ".$arry);
+					print_r($arry);
+					print_r($errorCode);
 				}
+
 				$insertado=false;
 				foreach ($arrayIdProfes as $key ) {
 					// insertamos en firma
@@ -136,7 +153,7 @@ if(!empty($_POST['historicos'])){
 		$filas=$stmt->fetchAll(PDO::FETCH_ASSOC);
 		if($filas){
 			foreach ($filas as $fila ) {
-				array_push($arrayDatos,array("id"=>$fila["id"],"titulo"=>$fila["titulo"],"dia"=>$fila["dia"],"horaInicio"=>$fila["horaInicio"],"horaFin"=>$fila["horaFin"],"curso"=>$fila["curso"],"orden"=>$fila["orden"],"observacion"=>$fila["observacion"]));	
+				array_push($arrayDatos,array("id"=>$fila["id"],"titulo"=>$fila["titulo"],"dia"=>$fila["dia"],"primeraConvocatoria"=>$fila["primeraConvocatoria"],"segundaConvocatoria"=>$fila["segundaConvocatoria"],"curso"=>$fila["curso"],"orden"=>$fila["orden"],"observacion"=>$fila["observacion"]));	
 			}
 		}else{
 			$arry=$stmt->errorInfo();
@@ -177,7 +194,7 @@ if(!empty($_POST['historico'])){
 					$img = str_replace('data:image/png;base64,', '', $img);
 					$img = str_replace(' ', '+', $img);
 					$data = base64_decode($img);
-					$src = 'data: image/png;base64,'.$img;
+					$src = 'data:image/png;base64,'.$img;
 
 
 					array_push($dat,array("id"=>$fila["id"],"claustro"=>$fila["idClaustro"],"profesor"=>$fila["idProfesor"],"firma"=>$src));
@@ -221,11 +238,11 @@ if(!empty($_POST['historico'])){
 if(!empty($_POST['actualizarClaustro'])){
 	$update = $_POST['actualizarClaustro'];
 	try{
-		$stmt=$pdo->prepare("update claustro set titulo=:titulo, dia=:dia, horaInicio=:horaInicio, horaFin=:horaFin, curso=:curso, orden=:orden, observacion=:observacion, activo=true, borrado=false where id=:id");
+		$stmt=$pdo->prepare("update claustro set titulo=:titulo, dia=:dia, primeraConvocatoria=:primeraConvocatoria, segundaConvocatoria=:segundaConvocatoria, curso=:curso, orden=:orden, observacion=:observacion, activo=true, borrado=false where id=:id");
 		$stmt->bindParam(':titulo', $update['titulo']);
 		$stmt->bindParam(':dia', $update['dia']);
-		$stmt->bindParam(':horaInicio', $update['horaInicio']);
-		$stmt->bindParam(':horaFin', $update['horaFin']);
+		$stmt->bindParam(':primeraConvocatoria', $update['primeraConvocatoria']);
+		$stmt->bindParam(':segundaConvocatoria', $update['segundaConvocatoria']);
 		$stmt->bindParam(':curso', $update['curso']);
 		$stmt->bindParam(':orden', $update['orden']);
 		$stmt->bindParam(':observacion', $update['observacion']);

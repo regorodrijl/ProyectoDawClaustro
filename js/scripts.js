@@ -86,24 +86,24 @@ $(document).ready(function () {
         if (respuesta.status === 'ok') {
             debugger
             toast({ msg: "Usuario registrado Correctamente!" });
-        }else{
+        } else {
             debugger
         }
     });
     $('#registrarse').click(function () {
-        // if () {
-        //peticion
-        let registro = {
-            "usuario": $("#usuarioRegistro").val(),
-            "email": $("#emailRegistro").val(),
-            "password": $("#passwordRegistro").val()
-        };
-        let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { registrarse: registro } });
-        if (respuesta.status === 'ok') {
-            toast({ msg: "Usuario registrado Correctamente!" });
+        if ($("#usuarioRegistro").val() !== undefined && $("#emailRegistro").val() !== undefined && $("#passwordRegistro").val() !== undefined) {
+            //peticion
+            let registro = {
+                "usuario": $("#usuarioRegistro").val(),
+                "email": $("#emailRegistro").val(),
+                "password": $("#passwordRegistro").val()
+            };
+            let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { registrarse: registro } });
+            if (respuesta.status === 'ok') {
+                toast({ msg: "Usuario registrado Correctamente!" });
+            }
+            $('#cancelarRegistro').trigger("click");
         }
-        $('#cancelarRegistro').trigger("click");
-        //}
     });
     $('#cancelarRegistro').click(function () {
         $('.registro').css('display') == 'none' ? $('.registro').css('display', 'block') : $('.registro').css('display', 'none');

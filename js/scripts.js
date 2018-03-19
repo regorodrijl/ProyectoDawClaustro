@@ -70,7 +70,7 @@ $(document).ready(function () {
 //Nueva parte  por revisar parte anterior 2018
 
 $(document).ready(function () {
-    comprobarToken();
+    //  comprobarToken();
 
     var profesPDF = [];
     $('#loginRegistro').click(function () {
@@ -134,51 +134,47 @@ $(document).ready(function () {
     comprobarClaustrosYCambioEstado();
     // CREAR NUEVO CLAUSTRO
     $("#crearClaustro").click(function () {
+        debugger
         //comprobar si hay clautro activo para esa fecha.     
         console.log("cambio fecha " + $("#fecha").val());
         if ($("#tituloClaustro").val() == "" && $("#fecha").val() == "" && $("#primeraConvocatoria").val() == "" && $("#segundaConvocatoria").val() == "" && $("#curso").val() == "" && $("#orden").val() == "") {
-            toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
+            toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso y Orden del Día.", tipo: 'warning' })
         } else {
             if ($("#fecha").val() != undefined && $("#fecha").val() !== '') {
-                let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { fecha: $("#fecha").val() } });
-                if (respuesta == "ok") {
-                    let profes = [];
-                    $("#seleccion").children().each(function (i, d) {
-                        profes.push(d.textContent);
-                    });
-                    console.log('cuantos profes: ' + profes.length);
-                    if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#primeraConvocatoria").val() == "" || $("#segundaConvocatoria").val() == "" || $("#curso").val() == "" || $("#orden").val() == "") {
-                        toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso, Orden del Día y seleccione profesores.", tipo: 'warning' })
-                    } else {
-                        let claustro = {
-                            "titulo": $("#tituloClaustro").val(),
-                            "dia": $("#fecha").val(),
-                            "primeraConvocatoria": $("#primeraConvocatoria").val(),
-                            "segundaConvocatoria": $("#segundaConvocatoria").val(),
-                            "curso": $("#curso").val(),
-                            "orden": $("#orden").val(),
-                            "observacion": $("#observacion").val(),
-                            "profesores": profes
-                        };
-                        let creacionClaustro = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { claustro: claustro } });
-                        if (creacionClaustro == "ko") {
-                            toast({ msg: "Ha habido algún error!" });
-                        } else {
-                            $("#tituloClaustro").val('');
-                            $("#curso").val('');
-                            $("#orden").val('');
-                            $("#observacion").val('');
-                            $("#fecha").val('');
-                            $("#primeraConvocatoria").val('');
-                            $("#segundaConvocatoria").val('');
-                            toast({ msg: "Claustro creado correctamente! <br/> RECUERDE! sólo estará activo el mismo día!" });
-                            $('.modal').hide();
-                        }
-                    }
+                //let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { fecha: $("#fecha").val() } });
+                // if (respuesta == "ok") {
+                if ($("#tituloClaustro").val() == "" || $("#fecha").val() == "" || $("#primeraConvocatoria").val() == "" || $("#segundaConvocatoria").val() == "" || $("#curso").val() == "" || $("#orden").val() == "") {
+                    toast({ msg: "Relleno los campos: Título, día, Fecha, Hora Inicio, Hora Fin, Curso y Orden del Día.", tipo: 'warning' })
                 } else {
-                    toast({ msg: "No se puede crear, revise el día" });
-                    console.log("error-> " + respuesta);
+                    let claustro = {
+                        "titulo": $("#tituloClaustro").val(),
+                        "dia": $("#fecha").val(),
+                        "primeraConvocatoria": $("#primeraConvocatoria").val(),
+                        "segundaConvocatoria": $("#segundaConvocatoria").val(),
+                        "curso": $("#curso").val(),
+                        "orden": $("#orden").val(),
+                        "observacion": $("#observacion").val(),
+                    };
+                    let creacionClaustro = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { claustro: claustro } });
+                    debugger
+                    if (creacionClaustro == "ko") {
+                        toast({ msg: "Ha habido algún error!" });
+                    } else {
+                        $("#tituloClaustro").val('');
+                        $("#curso").val('');
+                        $("#orden").val('');
+                        $("#observacion").val('');
+                        $("#fecha").val('');
+                        $("#primeraConvocatoria").val('');
+                        $("#segundaConvocatoria").val('');
+                        toast({ msg: "Claustro creado correctamente! <br/> RECUERDE! sólo estará activo el mismo día!" });
+                        $('.modal').hide();
+                    }
                 }
+                // } else {
+                //     toast({ msg: "No se puede crear, revise el día" });
+                //     console.log("error-> " + respuesta);
+                // }
                 $("#botonHistorico").trigger("click");
             } else {
                 toast({ msg: "Rellene el campo fecha", tipo: 'warning' });
@@ -191,6 +187,7 @@ $(document).ready(function () {
     $("#botonHistorico").click(function () {
         //abrimos la modal
         $('#modalHistorico').modal();
+        debugger
         //Vamos hace peticion ajax;
         let respuesta = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historicos: "Claustro historico" } });
         console.log("respuesta ajax", respuesta);
@@ -255,9 +252,10 @@ $(document).ready(function () {
                 $("#borrar").off("click");
 
                 $("#borrar").click(function () {
+                    debugger
                     let idBorrar = meClick.parent()[0].id;
                     console.log(meClick.parent()[0].id, "dentro de borrar, id:", idBorrar);
-                    let respuestaBorrar = peticionAjax({ url: "./librerias / php / funciones.php", tipo: "post", datos: { borrar: idBorrar } });
+                    let respuestaBorrar = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { borrar: idBorrar } });
                     if (respuestaBorrar === "ok") {
                         $("#" + respuesta[0].id + " td").fadeOut(1000);
                         toast({ msg: "Claustro borrado correctamente!", tipo: 'success' });

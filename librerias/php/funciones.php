@@ -85,9 +85,9 @@ if(!empty($_POST['claustro'])){
 				// ultimo id insertado en claustro.
 				$lastId = $pdo->lastInsertId(); 
 
-				$profesores = $res["profesores"];
-				// Para quitar espacios antes y despues de string
-				$profesores = array_map('trim', $profesores);
+				// $profesores = $res["profesores"];
+				// // Para quitar espacios antes y despues de string
+				// $profesores = array_map('trim', $profesores);
 
 				$arrayIdProfes=[];
 				// foreach ($profesores as $key ) {
@@ -102,7 +102,7 @@ if(!empty($_POST['claustro'])){
 				// }
 
 
-				$stmt = $pdo->prepare("SELECT * FROM profesor LIMIT 0, 50");
+				$stmt = $pdo->prepare("SELECT * FROM profesor LIMIT 10, 20");
 				$stmt->execute();
 				$filas=$stmt->fetchAll(PDO::FETCH_ASSOC);
 				if($filas){
@@ -194,7 +194,7 @@ if(!empty($_POST['historico'])){
 					$img = str_replace('data:image/png;base64,', '', $img);
 					$img = str_replace(' ', '+', $img);
 					$data = base64_decode($img);
-					$src = 'data: image/png;base64,'.$img;
+					$src = 'data:image/png;base64,'.$img;
 
 
 					array_push($dat,array("id"=>$fila["id"],"claustro"=>$fila["idClaustro"],"profesor"=>$fila["idProfesor"],"firma"=>$src));

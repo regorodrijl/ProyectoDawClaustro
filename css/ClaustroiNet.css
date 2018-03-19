@@ -54,6 +54,8 @@ header {
 header span {
 	margin: 20px;
 	line-height: 5;
+	font-weight: bold;
+	color: white;
 	text-transform: uppercase;
 }
 
@@ -334,6 +336,10 @@ td {
 
 .datosHistoricoClaustro {
 	padding-top: 60px
+}
+
+footer p {
+	line-height: 5;
 }
 
 /*https://codepen.io/mike-north/pen/MwVoYp?editors=1100*/

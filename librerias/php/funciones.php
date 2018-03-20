@@ -365,7 +365,7 @@ if(!empty($_POST['pdf'])){
 		// Creación del objeto de la clase heredada
 		$pdf = new FPDF();
 		$pdf->AddPage();
-		$pdf->Image('../../src/logo.png',10,8,33);
+		$pdf->Image('../../src/logos_xunta.png',10,8,33);
 		$pdf->SetFont('Arial','B',15);
 		$pdf->Cell(80);
 		$pdf->Cell(30,10,'IES San Clemente',0,1,'C');
@@ -445,8 +445,9 @@ if(!empty($_POST['pdf'])){
 			}
 		}
 		$pdf->Output("F",UPLOAD_DIR.$nombre.".pdf");
-		echo json_encode("C:/xampp/htdocs/ProyectoDawClaustro/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
-		//echo json_encode("http://regorodri.noip.me/proyecto/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
+		//echo json_encode("C:/xampp/htdocs/ProyectoDawClaustro/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
+		//http://regorodri.noip.me/ProyectoDawClaustro/librerias/php
+		echo json_encode("http://regorodri.noip.me/ProyectoDawClaustro/librerias/php/".UPLOAD_DIR.$nombre.".pdf");
 	//}
 	}
 	?>

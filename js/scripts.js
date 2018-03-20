@@ -33,34 +33,6 @@ $(document).ready(function () {
          console.log(error); 
        });// fin Botón Atualizar Profes
    */
-    //IMPRIMIR
-    $("#imprimir").click(function () {
-        debugger
-        $('div#contenidoAjax').show();
-        var datosPDF = { "title": $("#tituloEdit").val(), "date": $("#diaEdit").val(), "curso": $("#cursoEdit").val(), "hi": $("#hiEdit").val(), "hf": $("#hfEdit").val(), "or": $("#orEdit").val(), "ob": $("#obEdit").val(), "firmas": profesPDF };
-
-        console.log("DATOS A ENVIAR:", datosPDF);
-        var name = $("#diaEdit").val();
-        $.ajax({
-            type: "POST",
-            dataType: 'text',
-            dataType: 'json',
-            url: "./librerias/php/funciones.php",
-            data: { pdf: datosPDF, nombre: name },
-            success: function (pdf) {
-                $('div#contenidoAjax').hide();
-                console.log("url->", pdf);
-
-                a = document.createElement("a");
-                a.download = "Claustro" + name + ".pdf";
-                a.href = pdf;
-                a.click();
-
-                window.open(pdf, '_blank');
-            }
-        });
-
-    });//fin imprimir
 });
 /******************************************
  * ****************************************
@@ -184,6 +156,7 @@ $(document).ready(function () {
 
     //HISTORICO
     var datos;
+    let meClick;
     $("#botonHistorico").click(function () {
         //abrimos la modal
         $('#modalHistorico').modal();
@@ -208,7 +181,7 @@ $(document).ready(function () {
         });
 
         $("#tabla tr td").click(function () {
-            let meClick = $(this);
+            meClick = $(this);
             let x = $(this).parent("tr");
             let respuestaTabla = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { historico: x.attr('id') } });
             if (respuestaTabla.status == 'ok') {
@@ -240,9 +213,11 @@ $(document).ready(function () {
                         console.log("FIRMA", respuestaTabla.result[1][i].firma.length);
                         if (respuestaTabla.result[1][i].firma.length <= 23) {
                             objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
+                            profesPDF.push([respuestaTabla.result[2][i].nombre]);
                         } else {
                             objFirmas.nombre = [respuestaTabla.result[2][i].nombre];
                             objFirmas.firma = [respuestaTabla.result[1][i].firma];
+                            profesPDF.push([respuestaTabla.result[2][i].nombre], [respuestaTabla.result[1][i].firma]);
                         }
                         let cadenaFirmas = reemplazaMostachos(objFirmas);
                         $('.tablaFirmas').append(cadenaFirmas);
@@ -270,7 +245,7 @@ $(document).ready(function () {
                 });
                 $("#guardar").click(function () {
                     var Gclaustro = {
-                        "id": respuesta[0].id,
+                        "id": meClick.parent()[0].id,
                         "titulo": $("#tituloEdit").val(),
                         "dia": $("#diaEdit").val(),
                         "primeraConvocatoria": $("#hiEdit").val(),
@@ -286,6 +261,42 @@ $(document).ready(function () {
                     else
                         toast({ msg: "Error al actualizar un claustro! Error:" + respuestaGuardar.responseText, tipo: 'error' })
                 });
+                //IMPRIMIR
+                $("#imprimir").click(function () {
+                    debugger
+                    var datosPDF = { "title": $("#tituloEdit").val(), "date": $("#diaEdit").val(), "curso": $("#cursoEdit").val(), "hi": $("#hiEdit").val(), "hf": $("#hfEdit").val(), "or": $("#orEdit").val(), "ob": $("#obEdit").val(), "firmas": profesPDF };
+
+                    console.log("DATOS A ENVIAR:", datosPDF);
+                    var name = $("#diaEdit").val();
+                    let respuestaImprimir = peticionAjax({ url: "./librerias/php/funciones.php", tipo: "post", datos: { pdf: datosPDF, nombre: name } });
+
+                    if (respuestaImprimir) {
+                        console.log("url->", respuestaImprimir);
+
+                        // a = document.createElement("a");
+                        // a.download = "Claustro" + name + ".pdf";
+                        // a.href = respuestaImprimir;
+                        // a.click();
+
+                        window.open(respuestaImprimir, '_blank');
+                    }
+                    // $.ajax({
+                    //     type: "POST",
+                    //     dataType: 'text',
+                    //     dataType: 'json',
+                    //     url: "./librerias/php/funciones.php",
+                    //     data: { pdf: datosPDF, nombre: name },
+                    //     success: function (pdf) {
+                    //         console.log("url->", pdf);
+                    //         a = document.createElement("a");
+                    //         a.download = "Claustro" + name + ".pdf";
+                    //         a.href = pdf;
+                    //         a.click();
+                    //         window.open(pdf, '_blank');
+                    //     }
+                    // });
+
+                });//fin imprimir
             } else {
                 toast({ msg: "Error inesperado. Error:" + respuestaTabla, tipo: 'error' })
                 console.log('Error inesperado', respuestaTabla);

@@ -390,7 +390,7 @@ if(!empty($_POST['pdf'])){
 		//$pdf->write(5,utf8_decode($html["curso"]));
 
 		$pdf->SetFont('Times','B',12);
-		$pdf->Cell(80,10,utf8_decode('Hora Inicio:  '),0,0);
+		$pdf->Cell(80,10,utf8_decode('Primera Convocatoria:  '),0,0);
 		//$pdf->Write(5,utf8_decode('Hora Inicio:  '));
 		$pdf->SetFont('Times','',12);
 		$pdf->Cell(80,10,utf8_decode($html["hi"]),0,1);
@@ -398,7 +398,7 @@ if(!empty($_POST['pdf'])){
 
 
 		$pdf->SetFont('Times','B',12);
-		$pdf->Cell(80,10,utf8_decode('Hora Fin:  '),0,0);
+		$pdf->Cell(80,10,utf8_decode('Segunda Convocatoria:  '),0,0);
 		$pdf->SetFont('Times','',12);
 		$pdf->Cell(80,10,utf8_decode($html["hf"]),0,1);
 

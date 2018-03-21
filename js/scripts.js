@@ -52,21 +52,25 @@ $(document).ready(function () {
 
     });
     $('#login').click(function () {
-        let registro = {
-            "usuario": $("#user").val(),
-            "password": $("#password").val()
-        };
-        let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { login: registro } });
-        console.log('resp->', respuesta);
-        if (respuesta.status === 200 || respuesta.status === 'ok') {
-            tokenUsuario = respuesta.result;
-            debugger
-            window.location.href = "/ProyectoDawClaustro/portal.html";
-            toast({ msg: "Usuario registrado Correctamente!" });
-        } else {
-            debugger
-            toast({ msg: respuesta.result, tipo: 'error' });
-        }
+        debugger
+        if ($("#user").val() !== "" && $("#password").val() !== "") {
+            let registro = {
+                "usuario": $("#user").val(),
+                "password": $("#password").val()
+            };
+            let respuesta = peticionAjax({ url: "./librerias/php/pass.php", tipo: "post", datos: { login: registro } });
+            console.log('resp->', respuesta);
+            if (respuesta.status === 200 || respuesta.status === 'ok') {
+                tokenUsuario = respuesta.result;
+                debugger
+                window.location.href = "/ProyectoDawClaustro/portal.html";
+                toast({ msg: "Usuario registrado Correctamente!" });
+            } else {
+                debugger
+                toast({ msg: respuesta.result, tipo: 'error' });
+            }
+        } else
+            toast({ msg: "Rellene los campos", tipo: 'error' });
     });
     $('#registrarse').click(function () {
         if ($("#usuarioRegistro").val() !== undefined && $("#emailRegistro").val() !== undefined && $("#passwordRegistro").val() !== undefined) {
